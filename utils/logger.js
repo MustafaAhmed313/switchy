@@ -5,7 +5,7 @@ const logger = (log) => {
     console.log(`[${statusColor}${log.status}\x1b[0m]: ${log.message}`);
     if (log.data) {
       console.log(`${dataColor}Data ⤵\x1b[0m`);
-      console.log(log.data);
+      console.table(log.data);
     }
   } 
 };
