@@ -4,7 +4,7 @@ const {
   logger, 
   STATUS 
 } = require("./logger");
-const { getSuccessMessage, getErrorMessage, TYPES } = require("./MessageHandler");
+const { getSuccessMessage, getErrorMessage, TYPES } = require("./messageHandler");
 class FileOperator {
   // Read from json file
   static readFromFile = function (file) {

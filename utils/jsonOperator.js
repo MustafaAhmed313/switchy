@@ -3,7 +3,7 @@
 // 2) User Defined Modules 
 const { logger, STATUS } = require("./logger");
 const {Log} = require("../models/log")
-const {getErrorMessage, getSuccessMessage, TYPES} = require("./MessageHandler")
+const {getErrorMessage, getSuccessMessage, TYPES} = require("./messageHandler")
 // 3) Third Party Modules(npm)
 
 

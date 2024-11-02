@@ -4,7 +4,7 @@ const {FileOperator} = require('./utils/fileOperator');
 const {JsonOperator} = require('./utils/jsonOperator');
 const {Log } = require('./models/log')
 const { STATUS, logger } = require("./utils/logger");
-const { getSuccessMessage, TYPES } = require("./utils/MessageHandler");
+const { getSuccessMessage, TYPES } = require("./utils/messageHandler");
 
 
 dotenv.config({ path: '.env' });
