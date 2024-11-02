@@ -1,10 +1,11 @@
 const fs = require("fs");
-const {Log} = require("../models/log")
-const { 
-  logger, 
-  STATUS 
-} = require("./logger");
-const { getSuccessMessage, getErrorMessage, TYPES } = require("./MessageHandler");
+const { Log } = require("../models/log");
+const { logger, STATUS } = require("./logger");
+const {
+  getSuccessMessage,
+  getErrorMessage,
+  TYPES,
+} = require("./messageHandler");
 class FileOperator {
   // Read from json file
   static readFromFile = function (file) {
@@ -13,29 +14,26 @@ class FileOperator {
       return data;
     } catch (err) {
       // throw error with your way
-      logger(new Log(
-        STATUS.FAILED,
-        getErrorMessage(TYPES.FILE_READ)
-      ))
+      logger(new Log(STATUS.FAILED, getErrorMessage(TYPES.FILE_READ)));
     }
   };
   // Write to json file
   static writeToFile = function (file, data) {
     return new Promise(function (resolve, reject) {
       fs.writeFile(file, data, "utf-8", (err) => {
-        if (err) reject(logger(new Log(
-          STATUS.FAILED,
-          getErrorMessage(TYPES.FILE_WRITE)
-        )));
-        else resolve(logger(new Log(
-          STATUS.SUCCESS,
-          getSuccessMessage(TYPES.FILE_WRITE),
-        )));
+        if (err)
+          reject(
+            logger(new Log(STATUS.FAILED, getErrorMessage(TYPES.FILE_WRITE)))
+          );
+        else
+          resolve(
+            logger(new Log(STATUS.SUCCESS, getSuccessMessage(TYPES.FILE_WRITE)))
+          );
       });
     });
   };
 }
 
 module.exports = {
-  FileOperator
+  FileOperator,
 };

@@ -1,13 +1,12 @@
 const dotenv = require("dotenv");
 
-const {FileOperator} = require('./utils/fileOperator');
-const {JsonOperator} = require('./utils/jsonOperator');
-const {Log } = require('./models/log')
+const { FileOperator } = require("./utils/fileOperator");
+const { JsonOperator } = require("./utils/jsonOperator");
+const { Log } = require("./models/log");
 const { STATUS, logger } = require("./utils/logger");
-const { getSuccessMessage, TYPES } = require("./utils/MessageHandler");
+const { getSuccessMessage, TYPES } = require("./utils/messageHandler");
 
-
-dotenv.config({ path: '.env' });
+dotenv.config({ path: ".env" });
 
 // const data = {
 //     lastOpen: 'last opened repo using switchy!',
@@ -22,25 +21,33 @@ dotenv.config({ path: '.env' });
 
 // const data = FileOperators.readFromFile("./data.json");
 
-
-// --> Test for write to file 
+// --> Test for write to file
 // const newData = [{ user1: { user: "hfdkjf", pass: "sfdkjf" } }];
-const newData = [{ 
-    user1: { 
-      user: "hfdkjf", 
-      pass: "sfdkjf", 
-      method: function() { return "This is a function"; } // Functions cannot be stringified
-    } 
-  }];
-  
-FileOperator.writeToFile(
-    "./data/data.json",
-    JsonOperator.stringDataToWriteinJson(newData)
+// const newData = [
+//   {
+//     user1: {
+//       user: "hfdkjf",
+//       pass: "sfdkjf",
+//       err: "dfdf",
+//     },
+//     dfdf: "fd",
+//   },
+// ];
+
+// FileOperator.writeToFile(
+// `${process.env.DIRECTORY_DATA}/${process.env.REPOSITORY_NAME}.json`,
+//   JsonOperator.stringDataToWriteinJson(newData)
+// );
+
+// --> Test for read from file
+
+const data = FileOperator.readFromFile(
+  `${process.env.DIRECTORY_DATA}/${process.env.REPOSITORY_NAME}.json`
 );
-
-// --> Test for read from file 
-
-// const data = FileOperator.readFromFile(`${process.env.DIRECTORY_DATA}/${process.env.REPOSITORY_NAME}.json`)
-// logger(new Log(STATUS.SUCCESS, getSuccessMessage(TYPES.FILE_READ), JsonOperator.parsingJsonData(data)))
-
-
+logger(
+  new Log(
+    STATUS.SUCCESS,
+    getSuccessMessage(TYPES.FILE_READ),
+    JsonOperator.parsingJsonData(data)
+  )
+);

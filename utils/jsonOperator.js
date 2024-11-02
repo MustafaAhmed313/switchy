@@ -1,11 +1,13 @@
-
-// 1) Node Modules 
-// 2) User Defined Modules 
+// 1) Node Modules
+// 2) User Defined Modules
 const { logger, STATUS } = require("./logger");
-const {Log} = require("../models/log")
-const {getErrorMessage, getSuccessMessage, TYPES} = require("./MessageHandler")
+const { Log } = require("../models/log");
+const {
+  getErrorMessage,
+  getSuccessMessage,
+  TYPES,
+} = require("./messageHandler");
 // 3) Third Party Modules(npm)
-
 
 class JsonOperator {
   // Parsing json data
@@ -24,7 +26,7 @@ class JsonOperator {
   // Stringify data to write in json file
   static stringDataToWriteinJson = function (data) {
     try {
-      // throw new Error("fkdjfklasjdfkd")
+      throw new Error("fkdjfklasjdfkd");
       const stringData = JSON.stringify(data);
       return stringData;
     } catch (err) {
@@ -34,5 +36,5 @@ class JsonOperator {
 }
 
 module.exports = {
-  JsonOperator
+  JsonOperator,
 };
