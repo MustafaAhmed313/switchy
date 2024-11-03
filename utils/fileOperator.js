@@ -21,7 +21,7 @@ class FileOperator {
       logger(new Log(
         STATUS.FAILED,
         getErrorMessage(TYPES.FILE_READ)
-      ))
+      ));
     }
   };
 
@@ -39,5 +39,5 @@ class FileOperator {
 }
 
 module.exports = {
-  FileOperator
+  FileOperator,
 };
