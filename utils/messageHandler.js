@@ -1,58 +1,67 @@
 const TYPES = {
-  NOT_FOUND: 'not-found',
-  INVALID: 'invalid',
-  FILE_READ: 'file-read',
-  FILE_WRITE: 'file-write',
-  PARSE: 'parse-json',
-  STRINGIFY: 'stringify-data'
-}
+  NOT_FOUND: "not-found",
+  INVALID: "invalid",
+  FILE_READ: "file-read",
+  FILE_WRITE: "file-write",
+  PARSE: "parse-json",
+  STRINGIFY: "stringify-data",
+  REMOVE_REPO: "remove-repository",
+};
 let message;
 const getErrorMessage = (type, field) => {
-  switch(type) {
+  switch (type) {
     case TYPES.FILE_READ:
       message = `Failed to read the data from the file!`;
-      break
+      break;
     case TYPES.FILE_WRITE:
       message = `Failed to write the data into the file!`;
-      break
+      break;
     case TYPES.PARSE:
-      message = `Faild to parse json data!`
-      break
-    case TYPES.STRINGIFY: 
-     message = `Faild to stringify data!`
-     break
-    // default: 
+      message = `Faild to parse json data!`;
+      break;
+    case TYPES.STRINGIFY:
+      message = `Faild to stringify data!`;
+      break;
+    case TYPES.REMOVE_REPO:
+      message = `This repository was not found`;
+    // default:
     //   message = 'no-errors'
   }
 
   return message;
-}
+};
 
-
-const getSuccessMessage  = (type, field) =>{
-  switch(type){
+const getSuccessMessage = (type, field) => {
+  switch (type) {
     case TYPES.FILE_READ:
-      message = `Success to read the data from the file!`
-      break
+      message = `Success to read the data from the file!`;
+      break;
     case TYPES.FILE_WRITE:
-      message = `Success to write the data into the file!`
-      break
+      message = `Success to write the data into the file!`;
+      break;
     case TYPES.PARSE:
-      message = `Success to parse json data!`
-      break
+      message = `Success to parse json data!`;
+      break;
     case TYPES.STRINGIFY:
-        message = `Success to stringify data!`
-        break
-    // default: 
+      message = `Success to stringify data!`;
+    case TYPES.REMOVE_REPO:
+      message = `The repository has been removed successfully`;
+      break;
+    // default:
     //   message = 'success'
   }
 
   return message;
-}
+};
 
-
-module.exports =  {
+module.exports = {
   TYPES,
   getSuccessMessage,
-  getErrorMessage
-}
+  getErrorMessage,
+};
+
+// The repository has been removed successfullyfeat: Implement `removeRepo` functionality
+
+// - Added `removeRepo.js` to implement the repository removal functionality.
+// - Made minor changes in `JsonOperator.js` to support the new feature.
+// - Enabled users to remove any repository they wish to delete.
