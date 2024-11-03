@@ -1,19 +1,17 @@
-// 1) Node Modules
-// 2) User Defined Modules
-const { logger, STATUS } = require("./logger");
-const { Log } = require("../models/log");
+const { Log } = require("../models/log")
+const { 
+  logger, 
+  STATUS 
+} = require("./logger");
 const {
-  getErrorMessage,
-  getSuccessMessage,
-  TYPES,
-} = require("./messageHandler");
-// 3) Third Party Modules(npm)
+  getErrorMessage, 
+  TYPES
+} = require("./messageHandler")
 
 class JsonOperator {
-  // Parsing json data
+  
   static parsingJsonData = function (data) {
     try {
-      // throw new Error("ferjeiur: new message")
       const parsedData = JSON.parse(data);
       return parsedData;
     } catch (err) {
@@ -21,16 +19,15 @@ class JsonOperator {
     }
   };
 
-  // Stringify data to write in json file
   static stringDataToWriteinJson = function (data) {
     try {
-      // throw new Error("fkdjfklasjdfkd")
       const stringData = JSON.stringify(data);
       return stringData;
     } catch (err) {
       logger(new Log(STATUS.FAILED, getErrorMessage(TYPES.STRINGIFY)));
     }
   };
+  
 }
 
 module.exports = {

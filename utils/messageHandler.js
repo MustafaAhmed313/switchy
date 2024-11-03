@@ -1,13 +1,17 @@
 const TYPES = {
-  NOT_FOUND: "not-found",
-  INVALID: "invalid",
-  FILE_READ: "file-read",
-  FILE_WRITE: "file-write",
-  PARSE: "parse-json",
-  STRINGIFY: "stringify-data",
+  NOT_FOUND: 'not-found',
+  INVALID: 'invalid',
+  FILE_READ: 'file-read',
+  FILE_WRITE: 'file-write',
+  PARSE: 'parse-json',
+  STRINGIFY: 'stringify-data',
+  ADD: 'repository',
+  REQUIRED: 'required',
   REMOVE_REPO: "remove-repository",
-};
+}
+
 let message;
+
 const getErrorMessage = (type, field) => {
   switch (type) {
     case TYPES.FILE_READ:
@@ -19,13 +23,15 @@ const getErrorMessage = (type, field) => {
     case TYPES.PARSE:
       message = `Faild to parse json data!`;
       break;
-    case TYPES.STRINGIFY:
-      message = `Faild to stringify data!`;
-      break;
     case TYPES.REMOVE_REPO:
       message = `This repository was not found`;
-    // default:
-    //   message = 'no-errors'
+      break;
+    case TYPES.STRINGIFY: 
+      message = `Faild to stringify data!`;
+      break;
+    case TYPES.REQUIRED:
+      message = `${field} is required!`;
+      break;
   }
 
   return message;
@@ -44,11 +50,13 @@ const getSuccessMessage = (type, field) => {
       break;
     case TYPES.STRINGIFY:
       message = `Success to stringify data!`;
+      break;
     case TYPES.REMOVE_REPO:
       message = `The repository has been removed successfully`;
       break;
-    // default:
-    //   message = 'success'
+    case TYPES.ADD:
+      message = `New ${field} added to Switchy Successfully!`;
+      break;
   }
 
   return message;
