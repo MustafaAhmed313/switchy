@@ -5,7 +5,8 @@ const TYPES = {
   FILE_WRITE: 'file-write',
   PARSE: 'parse-json',
   STRINGIFY: 'stringify-data',
-  ADD: 'repository'
+  ADD: 'repository',
+  REQUIRED: 'required'
 }
 
 let message;
@@ -23,6 +24,9 @@ const getErrorMessage = (type, field) => {
       break;
     case TYPES.STRINGIFY: 
       message = `Faild to stringify data!`;
+      break;
+    case TYPES.REQUIRED:
+      message = `${field} is required!`;
       break;
   }
 

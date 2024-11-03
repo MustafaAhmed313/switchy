@@ -46,12 +46,20 @@ const {
 } = require('../utils/logger');
 const { 
   getSuccessMessage, 
-  TYPES 
+  TYPES, 
+  getErrorMessage
 } = require('../utils/messageHandler');
 
 const currentOS = os.type();
 
-const addRepository = (path) => {
+const add = (path) => {
+  if (!path) {
+    return logger(new Log(
+      STATUS.FAILED,
+      getErrorMessage(TYPES.REQUIRED, 'Repository path')
+    ));
+  }
+
   const condition = currentOS === `Linux` || currentOS === `Darwin`;
   const index = path.lastIndexOf(condition ? '/' :`\\`) + 1;
   const name = path.substring(index);
@@ -80,5 +88,5 @@ const addRepository = (path) => {
 }
 
 module.exports = {
-  addRepository
+  add
 }
