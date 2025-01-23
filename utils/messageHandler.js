@@ -8,12 +8,13 @@ const TYPES = {
   ADD: 'repository',
   UPDATE: 'repository',
   REQUIRED: 'required'
+  REMOVE: "remove-repository",
 }
 
 let message;
 
 const getErrorMessage = (type, field) => {
-  switch(type) {
+  switch (type) {
     case TYPES.FILE_READ:
       message = `Failed to read the data from the file!`;
       break;
@@ -22,6 +23,9 @@ const getErrorMessage = (type, field) => {
       break;
     case TYPES.PARSE:
       message = `Faild to parse json data!`;
+      break;
+    case TYPES.REMOVE:
+      message = `This repository was not found`;
       break;
     case TYPES.STRINGIFY: 
       message = `Faild to stringify data!`;
@@ -38,11 +42,10 @@ const getErrorMessage = (type, field) => {
   }
 
   return message;
-}
+};
 
-
-const getSuccessMessage  = (type, field) =>{
-  switch(type){
+const getSuccessMessage = (type, field) => {
+  switch (type) {
     case TYPES.FILE_READ:
       message = `Success to read the data from the file!`;
       break;
@@ -55,6 +58,9 @@ const getSuccessMessage  = (type, field) =>{
     case TYPES.STRINGIFY:
       message = `Success to stringify data!`;
       break;
+    case TYPES.REMOVE:
+      message = `The repository has been removed successfully`;
+      break;
     case TYPES.ADD:
       message = `New ${field} added to Switchy Successfully!`;
       break;
@@ -64,11 +70,16 @@ const getSuccessMessage  = (type, field) =>{
   }
 
   return message;
-}
+};
 
-
-module.exports =  {
+module.exports = {
   TYPES,
   getSuccessMessage,
-  getErrorMessage
-}
+  getErrorMessage,
+};
+
+// The repository has been removed successfullyfeat: Implement `removeRepo` functionality
+
+// - Added `removeRepo.js` to implement the repository removal functionality.
+// - Made minor changes in `JsonOperator.js` to support the new feature.
+// - Enabled users to remove any repository they wish to delete.

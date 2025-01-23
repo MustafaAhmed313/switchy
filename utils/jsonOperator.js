@@ -31,5 +31,5 @@ class JsonOperator {
 }
 
 module.exports = {
-  JsonOperator
+  JsonOperator,
 };
