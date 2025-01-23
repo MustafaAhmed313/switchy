@@ -6,6 +6,7 @@ const TYPES = {
   PARSE: 'parse-json',
   STRINGIFY: 'stringify-data',
   ADD: 'repository',
+  UPDATE: 'repository',
   REQUIRED: 'required'
 }
 
@@ -26,7 +27,13 @@ const getErrorMessage = (type, field) => {
       message = `Faild to stringify data!`;
       break;
     case TYPES.REQUIRED:
-      message = `${field} is required!`;
+      message = `${field} required!`;
+      break;
+    case TYPES.UPDATE:
+      message = `The new ${field} and old ${field} are similar!`;
+      break;
+    case TYPES.NOT_FOUND:
+      message = `${field} not found!`;
       break;
   }
 
@@ -50,6 +57,9 @@ const getSuccessMessage  = (type, field) =>{
       break;
     case TYPES.ADD:
       message = `New ${field} added to Switchy Successfully!`;
+      break;
+    case TYPES.UPDATE:
+      message = `${field} is updated Successfully!`;
       break;
   }
 
