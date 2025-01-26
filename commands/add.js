@@ -2,8 +2,8 @@
 1- get the repo path.
 
 2- validate the absolute path.
-
-  a- check if the path contains .git file.
+  // TODO:
+  a- check if the path contains .git file. 
 
     I- run bash script that take the path and try to access path if 
     it exist. O.W return false.
@@ -56,7 +56,7 @@ const add = (path) => {
   if (!path) {
     return logger(new Log(
       STATUS.FAILED,
-      getErrorMessage(TYPES.REQUIRED, 'Repository path')
+      getErrorMessage(TYPES.REQUIRED, 'Repository path is')
     ));
   }
 
