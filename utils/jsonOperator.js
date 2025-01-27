@@ -16,6 +16,7 @@ class JsonOperator {
       return parsedData;
     } catch (err) {
       logger(new Log(STATUS.FAILED, getErrorMessage(TYPES.PARSE)));
+      process.exit(0);
     }
   };
 
@@ -25,6 +26,7 @@ class JsonOperator {
       return stringData;
     } catch (err) {
       logger(new Log(STATUS.FAILED, getErrorMessage(TYPES.STRINGIFY)));
+      process.exit(0);
     }
   };
   
