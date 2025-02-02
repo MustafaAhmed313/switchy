@@ -5,9 +5,12 @@ const TYPES = {
   FILE_WRITE: 'file-write',
   PARSE: 'parse-json',
   STRINGIFY: 'stringify-data',
-  ADD: 'repository',
+  ADD: 'add',
+  UPDATE: 'update',
   REQUIRED: 'required',
-  REMOVE_REPO: "remove-repository",
+  REMOVE: "remove",
+  ALL: 'all',
+  EMPTY: 'empty'
 }
 
 let message;
@@ -23,14 +26,20 @@ const getErrorMessage = (type, field) => {
     case TYPES.PARSE:
       message = `Faild to parse json data!`;
       break;
-    case TYPES.REMOVE_REPO:
-      message = `This repository was not found`;
-      break;
     case TYPES.STRINGIFY: 
       message = `Faild to stringify data!`;
       break;
     case TYPES.REQUIRED:
-      message = `${field} is required!`;
+      message = `${field} required!`;
+      break;
+    case TYPES.UPDATE:
+      message = `The new ${field} and old ${field} are similar!`;
+      break;
+    case TYPES.NOT_FOUND:
+      message = `${field} not found!`;
+      break;
+    case TYPES.INIT:
+      message = `Switchy must be initialized!`;
       break;
   }
 
@@ -51,11 +60,20 @@ const getSuccessMessage = (type, field) => {
     case TYPES.STRINGIFY:
       message = `Success to stringify data!`;
       break;
-    case TYPES.REMOVE_REPO:
+    case TYPES.REMOVE:
       message = `The repository has been removed successfully`;
       break;
     case TYPES.ADD:
       message = `New ${field} added to Switchy Successfully!`;
+      break;
+    case TYPES.UPDATE:
+      message = `${field} is updated Successfully!`;
+      break;
+    case TYPES.ALL:
+      message = `Switchy stored repositories:`;
+      break;
+    case TYPES.EMPTY:
+      message = `No repositories stored yet!`;
       break;
   }
 
@@ -67,9 +85,3 @@ module.exports = {
   getSuccessMessage,
   getErrorMessage,
 };
-
-// The repository has been removed successfullyfeat: Implement `removeRepo` functionality
-
-// - Added `removeRepo.js` to implement the repository removal functionality.
-// - Made minor changes in `JsonOperator.js` to support the new feature.
-// - Enabled users to remove any repository they wish to delete.

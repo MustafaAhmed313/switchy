@@ -1,4 +1,5 @@
 // 1) Node Modules
+
 // 2) User Defined Modules
 const { FileOperator } = require("../utils/fileOperator");
 const { JsonOperator } = require("../utils/jsonOperator");
@@ -9,13 +10,11 @@ const {
   getSuccessMessage,
   TYPES,
 } = require("../utils/messageHandler");
-// const {} = require("../utils/logger");
-// 3) Third Party Modules(npm)
-const dotenv = require("dotenv");
-const { logger, STATUS } = require("../utils/logger");
-dotenv.config({ path: ".env" });
 
-const remove = (repoName) => {
+// 3) Third Party Modules(npm)
+const { logger, STATUS } = require("../utils/logger");
+
+const remove = (name) => {
   let message = "";
   //  first thing ==> read data from file data
   const filePath = `${process.env.DIRECTORY_DATA}/${process.env.REPOSITORY_NAME}.json`;
@@ -24,7 +23,7 @@ const remove = (repoName) => {
   // second step parse it
   data = JsonOperator.parsingJsonData(data);
   // third step delete repo
-  let index = RepoOperator.getRepoIndexByName(data["repositories"], repoName);
+  let index = RepoOperator.getRepoIndexByName(data["repositories"], name);
   if (data["lastOpened"] === data["repositories"].name)
     data["lastOpen"] = "none";
   if (index !== -1) RepoOperator.removeRepoByIndex(data["repositories"], index);
@@ -39,8 +38,8 @@ const remove = (repoName) => {
     new Log(
       index === -1 ? STATUS.FAILED : STATUS.SUCCESS,
       index === -1
-        ? getErrorMessage(TYPES.REMOVE_REPO)
-        : getSuccessMessage(TYPES.REMOVE_REPO)
+        ? getErrorMessage(TYPES.NOT_FOUND)
+        : getSuccessMessage(TYPES.REMOVE, 'Repository')
     )
   );
 };
