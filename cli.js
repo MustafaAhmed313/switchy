@@ -1,5 +1,8 @@
 const dotenv = require("dotenv");
 
+const { init } = require("./commands/init");
+
+
 const {
   add,
   remove,
@@ -11,4 +14,5 @@ dotenv.config({ path: ".env" });
 
 add('D:\\GitRepos\\switchy');
 list()
+
 
