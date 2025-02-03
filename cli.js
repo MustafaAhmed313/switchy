@@ -16,6 +16,7 @@ const {
   remove,
   update,
   redirect,
+  search,
 } = require("./commands/index");
 const { RunScript } = require("./utils/runScript");
 dotenv.config({ path: ".env" });
@@ -30,5 +31,11 @@ if (fileIsEmpty(path) === "Empty") {
 }
 
 // add("D:/GitRepos/discord");
+
+// add("D:/GitRepos/facebook");
+// add("D:/GitRepos/online-shopping");
+// add("D:/GitRepos/order-notification-management");
 // console.log("from cli : ", redirect("discord"));
 // // list()
+
+console.log(search("facebook"));

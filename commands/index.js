@@ -4,6 +4,7 @@ const { remove } = require("./remove");
 const { list } = require("./list");
 const { init } = require("./init");
 const { redirect } = require("./redirect");
+const { search } = require("./search");
 const commands = {
   add,
   update,
@@ -11,6 +12,7 @@ const commands = {
   list,
   init,
   redirect,
+  search,
 };
 
 module.exports = commands;
