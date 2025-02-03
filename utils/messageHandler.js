@@ -1,17 +1,19 @@
 const TYPES = {
-  NOT_FOUND: 'not-found',
-  INVALID: 'invalid',
-  FILE_READ: 'file-read',
-  FILE_WRITE: 'file-write',
-  PARSE: 'parse-json',
-  STRINGIFY: 'stringify-data',
-  ADD: 'add',
-  UPDATE: 'update',
-  REQUIRED: 'required',
+  NOT_FOUND: "not-found",
+  INVALID: "invalid",
+  FILE_READ: "file-read",
+  FILE_WRITE: "file-write",
+  PARSE: "parse-json",
+  STRINGIFY: "stringify-data",
+  ADD: "add",
+  UPDATE: "update",
+  REQUIRED: "required",
   REMOVE: "remove",
-  ALL: 'all',
-  EMPTY: 'empty'
-}
+  ALL: "all",
+  EMPTY: "empty",
+  VSCODE: "vscode",
+  INIT: "init",
+};
 
 let message;
 
@@ -26,7 +28,7 @@ const getErrorMessage = (type, field) => {
     case TYPES.PARSE:
       message = `Faild to parse json data!`;
       break;
-    case TYPES.STRINGIFY: 
+    case TYPES.STRINGIFY:
       message = `Faild to stringify data!`;
       break;
     case TYPES.REQUIRED:
@@ -39,7 +41,13 @@ const getErrorMessage = (type, field) => {
       message = `${field} not found!`;
       break;
     case TYPES.INIT:
-      message = `Switchy must be initialized!`;
+      message = `Data has not been initialized yet!`;
+      break;
+    case TYPES.VSCODE:
+      message = `Failed to open VS Code`;
+      break;
+    case TYPES.EMPTY:
+      message = `No ${field} stored yet!`;
       break;
   }
 
@@ -72,8 +80,11 @@ const getSuccessMessage = (type, field) => {
     case TYPES.ALL:
       message = `Switchy stored repositories:`;
       break;
-    case TYPES.EMPTY:
-      message = `No repositories stored yet!`;
+    case TYPES.VSCODE:
+      message = `Path Opened in VS Code Successfully!`;
+      break;
+    case TYPES.INIT:
+      message = `The data has been initialized successfully!`;
       break;
   }
 

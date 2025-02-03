@@ -3,9 +3,9 @@
 // 2) User Defined Modules
 const { FileOperator } = require("../utils/fileOperator");
 const { JsonOperator } = require("../utils/jsonOperator");
-const { RepoOperator } = require("../utils/repoOperatror");
+const { RepoOperator } = require("../utils/repoOperator");
 const { Log } = require("../models/log");
-const config = require("../config/config"); 
+const config = require("../config/config");
 const {
   getErrorMessage,
   getSuccessMessage,
