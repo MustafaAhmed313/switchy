@@ -17,6 +17,7 @@ const {
   update,
   redirect,
   search,
+  lastOpenRepo,
 } = require("./commands/index");
 const { RunScript } = require("./utils/runScript");
 dotenv.config({ path: ".env" });
@@ -38,4 +39,5 @@ if (fileIsEmpty(path) === "Empty") {
 // console.log("from cli : ", redirect("discord"));
 // // list()
 
-console.log(search("facebook"));
+// console.log(search("facebook"));
+console.log(lastOpenRepo());
