@@ -131,4 +131,8 @@ dist
 .vercel
 
 # Data Directory
-data/
+data
+
+# Configuration Directory
+config
+
