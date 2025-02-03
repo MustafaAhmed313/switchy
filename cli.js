@@ -1,18 +1,17 @@
 const dotenv = require("dotenv");
 
-const { init } = require("./commands/init");
-
-
 const {
   add,
-  remove,
+  init,
   list,
+  remove,
   update
-} = require('./commands/index');
-
+} = require('./commands/index')
 dotenv.config({ path: ".env" });
 
-add('D:\\GitRepos\\switchy');
-list()
+init();
+
+// add('D:\\GitRepos\\switchy');
+// list()
 
 
