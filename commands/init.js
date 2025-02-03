@@ -2,7 +2,7 @@ const { FileOperator } = require("../utils/fileOperator");
 const { JsonOperator } = require("../utils/jsonOperator");
 const { pathIsExist } = require("../utils/validator");
 
-exports.init = () => {
+const init = () => {
   //   console.log("hello from init function");
   const filePath = `${process.env.DIRECTORY_DATA}/${process.env.REPOSITORY_NAME}.json`;
   // check if it is exist or no before make the below steps
@@ -19,4 +19,8 @@ exports.init = () => {
     dataStructure = JsonOperator.stringDataToWriteinJson(dataStructure);
     FileOperator.writeToFile(filePath, dataStructure);
   }
+};
+
+module.exports = {
+  init
 };
