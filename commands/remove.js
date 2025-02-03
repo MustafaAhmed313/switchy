@@ -5,6 +5,7 @@ const { FileOperator } = require("../utils/fileOperator");
 const { JsonOperator } = require("../utils/jsonOperator");
 const { RepoOperator } = require("../utils/repoOperatror");
 const { Log } = require("../models/log");
+const config = require("../config/config"); 
 const {
   getErrorMessage,
   getSuccessMessage,
@@ -17,7 +18,7 @@ const { logger, STATUS } = require("../utils/logger");
 const remove = (name) => {
   let message = "";
   //  first thing ==> read data from file data
-  const filePath = `${process.env.DIRECTORY_DATA}/${process.env.REPOSITORY_NAME}.json`;
+  const filePath = `${config.DIRECTORY_DATA}/${config.REPOSITORY_NAME}.json`;
 
   let data = FileOperator.readFromFile(filePath);
   // second step parse it
@@ -39,7 +40,7 @@ const remove = (name) => {
       index === -1 ? STATUS.FAILED : STATUS.SUCCESS,
       index === -1
         ? getErrorMessage(TYPES.NOT_FOUND)
-        : getSuccessMessage(TYPES.REMOVE, 'Repository')
+        : getSuccessMessage(TYPES.REMOVE, "Repository")
     )
   );
 };
