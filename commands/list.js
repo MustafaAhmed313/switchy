@@ -2,7 +2,11 @@ const { Log } = require("../models/log");
 const { FileOperator } = require("../utils/fileOperator");
 const { JsonOperator } = require("../utils/jsonOperator");
 const { logger, STATUS } = require("../utils/logger");
-const { TYPES, getSuccessMessage } = require("../utils/messageHandler");
+const {
+  TYPES,
+  getSuccessMessage,
+  getErrorMessage,
+} = require("../utils/messageHandler");
 const config = require("../config/config");
 const list = () => {
   const data = FileOperator.readFromFile(
@@ -10,7 +14,9 @@ const list = () => {
   );
 
   if (!data) {
-    return logger(new Log(STATUS.SUCCESS, getSuccessMessage(TYPES.EMPTY)));
+    return logger(
+      new Log(STATUS.FAILED, getErrorMessage(TYPES.EMPTY, "repositories"))
+    );
   }
 
   const parsedData = JsonOperator.parsingJsonData(data);

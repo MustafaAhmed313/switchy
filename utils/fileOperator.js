@@ -19,14 +19,11 @@ class FileOperator {
   };
 
   static writeToFile = function (file, data) {
-    return new Promise(function (reject) {
-      fs.writeFile(file, data, "utf-8", (err) => {
-        if (err)
-          reject(
-            logger(new Log(STATUS.FAILED, getErrorMessage(TYPES.FILE_WRITE)))
-          );
-      });
-    });
+    try {
+      fs.writeFileSync(file, data, "utf-8");
+    } catch (err) {
+      logger(new Log(STATUS.FAILED, getErrorMessage(TYPES.FILE_WRITE)));
+    }
   };
 }
 module.exports = {
