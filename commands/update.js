@@ -10,8 +10,6 @@ const {
   getSuccessMessage
 } = require('../utils/index')
 
-// TODO: CHECKING FOR EXISTING PATHS AND REPOS.
-
 const update = (name, path) => {
   if (!name || !path) {
     return logger(

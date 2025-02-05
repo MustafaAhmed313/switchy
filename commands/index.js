@@ -6,6 +6,7 @@ const { init } = require("./init");
 const { redirect } = require("./redirect");
 const { search } = require("./search");
 const { last } = require("./last");
+const { reset } = require('./reset');
 
 const commands = {
   add,
@@ -16,6 +17,7 @@ const commands = {
   redirect,
   search,
   last,
+  reset
 };
 
 module.exports = commands;

@@ -13,7 +13,8 @@ const TYPES = {
   EMPTY: "empty",
   VSCODE: "vscode",
   INIT: "init",
-  DUPLICATE: 'duplicate'
+  DUPLICATE: 'duplicate',
+  RESET: 'reset'
 };
 
 let message;
@@ -89,6 +90,9 @@ const getSuccessMessage = (type, field) => {
       break;
     case TYPES.INIT:
       message = `The data has been initialized successfully!`;
+      break;
+    case TYPES.RESET:
+      message = `Switchy is cleared successfully!`;
       break;
   }
 

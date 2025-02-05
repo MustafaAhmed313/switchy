@@ -1,5 +1,3 @@
-const dotenv = require("dotenv");
-
 const {
   fileIsEmpty,
   getDataPath,
@@ -21,9 +19,9 @@ const {
   redirect,
   search,
   last,
+  reset
 } = require("./commands/index");
 
-dotenv.config({ path: ".env" });
 // ********************
 // // first thing if data file is not exist make data file
 // RunScript.initializeData();
@@ -48,4 +46,6 @@ if (fileIsEmpty(path) === "Empty") {
 // console.log(last());
 
 // list();
-redirect('switchy');
+// redirect('switchy');
+
+// reset();
