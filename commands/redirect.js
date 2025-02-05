@@ -1,8 +1,10 @@
-const { RunScript } = require("../utils/runScript");
-const { FileOperator } = require("../utils/fileOperator");
-const { JsonOperator } = require("../utils/jsonOperator");
-const { RepoOperator } = require("../utils/repoOperator");
-const { getDataPath } = require("../utils/pathModule");
+const {
+  FileOperator,
+  JsonOperator,
+  RepoOperator,
+  RunScript,
+  getDataPath
+} = require('../utils/index')
 /**
  * The `redirect` function handles the process of:
  * 1. Checking if a repository exists in the data file.
@@ -10,10 +12,11 @@ const { getDataPath } = require("../utils/pathModule");
  * 3. Running a script to open the repository in VSCode.
  * 4. Writing the updated data back to the JSON file.
  *
- * @param {string} repoName - The name of the repository to be processed.
+ * @param {string} name - The name of the repository to be processed.
  * @returns {string} - Returns "Exist" if the repository exists and the operation was successful, otherwise returns "NotExist".
  */
-const redirect = (repoName) => {
+
+const redirect = (name) => {
   // Construct the file path to the JSON data file where repositories are stored.
   const path = getDataPath();
 
@@ -29,7 +32,7 @@ const redirect = (repoName) => {
   // Step 3: Check if the repository exists in the data file.
   const repoIndex = RepoOperator.getRepoIndexByName(
     data["repositories"],
-    repoName
+    name
   );
 
   // If repoIndex is -1, it means the repository doesn't exist, return "NotExist".
@@ -37,7 +40,7 @@ const redirect = (repoName) => {
 
   // Step 4: Update the "lastOpen" field to the name of the current repository.
   RepoOperator.updataRepo(data, repoIndex);
-  data["lastOpen"] = repoName;
+  data["lastOpen"] = name;
 
   // Step 5: Run the script to open the repository in VSCode using `RunScript.openInVSCode`.
   // RunScript.openInVSCode("../Zoombie-CLI");

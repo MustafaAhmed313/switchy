@@ -3,12 +3,16 @@
   "version": "1.0.0",
   "description": "Repository Manager",
   "main": "cli.js",
+  "bin": {
+    "switchy": "./cli.js"
+  },
   "scripts": {
     "test": "node cli.js"
   },
   "author": "\"Mustafa A. Farghaly\"",
   "license": "ISC",
   "dependencies": {
+    "commander": "^13.1.0",
     "dotenv": "^16.4.5"
   }
 }

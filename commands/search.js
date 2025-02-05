@@ -1,7 +1,9 @@
-const { FileOperator } = require("../utils/fileOperator");
-const { JsonOperator } = require("../utils/jsonOperator");
-const { RepoOperator } = require("../utils/repoOperator");
-const { getDataPath } = require("../utils/pathModule");
+const {
+  FileOperator,
+  JsonOperator,
+  getDataPath,
+  RepoOperator
+} = require('../utils/index')
 
 /**
  * Searches for a repository by name in the data file.
@@ -15,6 +17,7 @@ const { getDataPath } = require("../utils/pathModule");
  * @param {string} name - The name of the repository to search for.
  * @returns {Object|string} - Returns the repository object if found, otherwise returns `"NotExist"`.
  */
+
 const search = (name) => {
   // Get the path to the data file
   const path = getDataPath();

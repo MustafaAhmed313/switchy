@@ -1,14 +1,17 @@
 const dotenv = require("dotenv");
-const { fileIsEmpty } = require("./utils/validator");
-const { getDataPath } = require("./utils/pathModule");
 
-const { logger, STATUS } = require("./utils/logger");
 const {
+  fileIsEmpty,
+  getDataPath,
+  logger,
+  STATUS,
   TYPES,
-  getSuccessMessage,
   getErrorMessage,
-} = require("./utils/messageHandler");
+  RunScript
+} = require('./utils/index');
+
 const { Log } = require("./models/log");
+
 const {
   add,
   init,
@@ -17,9 +20,9 @@ const {
   update,
   redirect,
   search,
-  lastOpenRepo,
+  last,
 } = require("./commands/index");
-const { RunScript } = require("./utils/runScript");
+
 dotenv.config({ path: ".env" });
 // ********************
 // // first thing if data file is not exist make data file
@@ -31,6 +34,8 @@ if (fileIsEmpty(path) === "Empty") {
   init();
 }
 
+// add('D:\\GitRepos\\switchy');
+
 // add("D:/GitRepos/discord");
 
 // add("D:/GitRepos/facebook");
@@ -40,4 +45,7 @@ if (fileIsEmpty(path) === "Empty") {
 // // list()
 
 // console.log(search("facebook"));
-console.log(lastOpenRepo());
+// console.log(last());
+
+// list();
+redirect('switchy');

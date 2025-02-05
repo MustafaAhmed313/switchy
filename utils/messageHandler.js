@@ -13,6 +13,7 @@ const TYPES = {
   EMPTY: "empty",
   VSCODE: "vscode",
   INIT: "init",
+  DUPLICATE: 'duplicate'
 };
 
 let message;
@@ -48,6 +49,9 @@ const getErrorMessage = (type, field) => {
       break;
     case TYPES.EMPTY:
       message = `No ${field} stored yet!`;
+      break;
+    case TYPES.DUPLICATE:
+      message = `There is already existing ${field} repository!`;
       break;
   }
 

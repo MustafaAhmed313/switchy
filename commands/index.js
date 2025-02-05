@@ -5,7 +5,8 @@ const { list } = require("./list");
 const { init } = require("./init");
 const { redirect } = require("./redirect");
 const { search } = require("./search");
-const { lastOpenRepo } = require("./lastOpen");
+const { last } = require("./last");
+
 const commands = {
   add,
   update,
@@ -14,7 +15,7 @@ const commands = {
   init,
   redirect,
   search,
-  lastOpenRepo,
+  last,
 };
 
 module.exports = commands;

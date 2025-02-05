@@ -1,13 +1,14 @@
 const { Log } = require("../models/log");
-const { FileOperator } = require("../utils/fileOperator");
-const { JsonOperator } = require("../utils/jsonOperator");
-const { logger, STATUS } = require("../utils/logger");
-const config = require("../config/config");
+
 const {
-  getErrorMessage,
+  FileOperator,
+  JsonOperator,
+  logger,
+  STATUS,
   TYPES,
-  getSuccessMessage,
-} = require("../utils/messageHandler");
+  getErrorMessage,
+  getSuccessMessage
+} = require('../utils/index')
 
 // TODO: CHECKING FOR EXISTING PATHS AND REPOS.
 
@@ -22,7 +23,7 @@ const update = (name, path) => {
   }
 
   const data = FileOperator.readFromFile(
-    `${config.DIRECTORY_DATA}/${config.REPOSITORY_NAME}.json`
+    getDataPath()
   );
   const parsedData = JsonOperator.parsingJsonData(data);
 
@@ -49,7 +50,7 @@ const update = (name, path) => {
   parsedData["repositories"][index] = repository;
   const stringData = JsonOperator.stringDataToWriteinJson(parsedData);
   FileOperator.writeToFile(
-    `${config.DIRECTORY_DATA}/${config.REPOSITORY_NAME}.json`,
+    getDataPath(),
     stringData
   );
 
