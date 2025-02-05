@@ -1,6 +1,8 @@
-const { FileOperator } = require("../utils/fileOperator");
-const { JsonOperator } = require("../utils/jsonOperator");
-const { getDataPath } = require("../utils/pathModule");
+const {
+  FileOperator,
+  JsonOperator,
+  getDataPath
+} = require('../utils/index') 
 
 /**
  * Initializes the data file by checking if the specified path exists.
@@ -19,6 +21,7 @@ const { getDataPath } = require("../utils/pathModule");
  *
  * @returns {void} Nothing is returned.
  */
+
 const init = () => {
   // Get the file path for where the data file should be saved
   const path = getDataPath();

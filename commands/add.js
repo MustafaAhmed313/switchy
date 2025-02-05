@@ -1,17 +1,17 @@
 const os = require("os");
 
 const { Repository } = require("../models/repository");
-const { FileOperator } = require("../utils/fileOperator");
-const { JsonOperator } = require("../utils/jsonOperator");
-const { Log } = require("../models/log");
-const { logger, STATUS } = require("../utils/logger");
-
-const config = require("../config/config");
 const {
-  getSuccessMessage,
+  FileOperator,
+  JsonOperator,
+  logger,
+  STATUS,
   TYPES,
   getErrorMessage,
-} = require("../utils/messageHandler");
+  getSuccessMessage,
+  getDataPath
+} = require('../utils/index'); 
+const { Log } = require("../models/log");
 
 const currentOS = os.type();
 
@@ -35,19 +35,24 @@ const add = (path) => {
     new Date(Date.now()).toUTCString()
   );
 
-  const data = FileOperator.readFromFile(
-    `${config.DIRECTORY_DATA}/${config.REPOSITORY_NAME}.json`
-  );
+  const filePath = getDataPath();
+  const data = FileOperator.readFromFile(filePath);
 
   if (!data) {
     return logger(new Log(STATUS.FAILED, getErrorMessage(TYPES.INIT)));
   }
 
   const parsedData = JsonOperator.parsingJsonData(data);
+
+  const result = parsedData["repositories"].find((repo) => repo.name === repository.name);
+  if (result) {
+    return logger(new Log(STATUS.FAILED, getErrorMessage(TYPES.DUPLICATE, `${repository.name}`)))
+  }
+
   parsedData["repositories"].push(repository);
 
   FileOperator.writeToFile(
-    `${config.DIRECTORY_DATA}/${config.REPOSITORY_NAME}.json`,
+    getDataPath(),
     JSON.stringify(parsedData)
   );
 

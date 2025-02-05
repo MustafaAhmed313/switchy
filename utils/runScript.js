@@ -11,9 +11,9 @@ class RunScript {
   static openInVSCode = (path) => {
     exec(`code "${path}"`, (error) => {
       if (error) {
-        logger(new Log(STATUS.FAILED, getErrorMessage(TYPES.OPEN_VSCODE)));
+        logger(new Log(STATUS.FAILED, getErrorMessage(TYPES.VSCODE)));
       } else {
-        logger(new Log(STATUS.SUCCESS, getSuccessMessage(TYPES.OPEN_VSCODE)));
+        logger(new Log(STATUS.SUCCESS, getSuccessMessage(TYPES.VSCODE)));
       }
     });
   };

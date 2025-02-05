@@ -1,16 +1,19 @@
 const { Log } = require("../models/log");
-const { FileOperator } = require("../utils/fileOperator");
-const { JsonOperator } = require("../utils/jsonOperator");
-const { logger, STATUS } = require("../utils/logger");
+
 const {
+  FileOperator,
+  JsonOperator,
+  logger,
+  STATUS,
   TYPES,
-  getSuccessMessage,
   getErrorMessage,
-} = require("../utils/messageHandler");
-const config = require("../config/config");
+  getSuccessMessage,
+  getDataPath
+} = require('../utils/index')
+
 const list = () => {
   const data = FileOperator.readFromFile(
-    `${config.DIRECTORY_DATA}/${config.REPOSITORY_NAME}.json`
+    getDataPath()
   );
 
   if (!data) {
