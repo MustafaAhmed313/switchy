@@ -8,29 +8,17 @@ const {
   TYPES,
   getErrorMessage,
   getSuccessMessage,
-  getDataPath
-} = require('../utils/index')
+  getDataPath,
+} = require("../utils/index");
 
 const list = () => {
-  const data = FileOperator.readFromFile(
-    getDataPath()
-  );
-
+  const data = FileOperator.readFromFile(getDataPath());
   if (!data) {
-    return logger(
-      new Log(STATUS.FAILED, getErrorMessage(TYPES.EMPTY, "repositories"))
-    );
+    return "Empty";
   }
-
   const parsedData = JsonOperator.parsingJsonData(data);
 
-  return logger(
-    new Log(
-      STATUS.SUCCESS,
-      getSuccessMessage(TYPES.ALL),
-      parsedData["repositories"]
-    )
-  );
+  return parsedData["repositories"];
 };
 
 module.exports = {

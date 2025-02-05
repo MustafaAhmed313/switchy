@@ -5,16 +5,20 @@ const TYPES = {
   FILE_WRITE: "file-write",
   PARSE: "parse-json",
   STRINGIFY: "stringify-data",
+  REQUIRED: "required",
+  VSCODE: "vscode",
+  DUPLICATE: "duplicate",
+  // features
+  REPO: "repo",
   ADD: "add",
   UPDATE: "update",
-  REQUIRED: "required",
   REMOVE: "remove",
   ALL: "all",
+  LAST: "last",
   EMPTY: "empty",
-  VSCODE: "vscode",
   INIT: "init",
-  DUPLICATE: 'duplicate',
-  RESET: 'reset'
+  RESET: "reset",
+  REDIRECT: "redirect",
 };
 
 let message;
@@ -40,7 +44,7 @@ const getErrorMessage = (type, field) => {
       message = `The new ${field} and old ${field} are similar!`;
       break;
     case TYPES.NOT_FOUND:
-      message = `${field} not found!`;
+      message = `The ${field} not found!`;
       break;
     case TYPES.INIT:
       message = `Data has not been initialized yet!`;
@@ -52,7 +56,10 @@ const getErrorMessage = (type, field) => {
       message = `No ${field} stored yet!`;
       break;
     case TYPES.DUPLICATE:
-      message = `There is already existing ${field} repository!`;
+      message = `There is already an existing ${field} repository!`;
+      break;
+    case TYPES.REPO:
+      message = `The path is not a repository!`;
       break;
   }
 
@@ -77,7 +84,7 @@ const getSuccessMessage = (type, field) => {
       message = `The repository has been removed successfully`;
       break;
     case TYPES.ADD:
-      message = `New ${field} added to Switchy Successfully!`;
+      message = `${field} added to Switchy Successfully!`;
       break;
     case TYPES.UPDATE:
       message = `${field} is updated Successfully!`;
@@ -93,6 +100,15 @@ const getSuccessMessage = (type, field) => {
       break;
     case TYPES.RESET:
       message = `Switchy is cleared successfully!`;
+      break;
+    case TYPES.LAST:
+      message = "The last repository opened is :";
+      break;
+    case TYPES.REDIRECT:
+      message = `The Repo ${field} has been opened successfully!`;
+      break;
+    case TYPES.REPO:
+      message = `Repo Info:`;
       break;
   }
 

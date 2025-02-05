@@ -10,11 +10,10 @@ const {
   STATUS,
   TYPES,
   getErrorMessage,
-  getSuccessMessage
-} = require('../utils/index')
+  getSuccessMessage,
+} = require("../utils/index");
 
 const remove = (name) => {
-  let message = "";
   //  first thing ==> read data from file data
   const filePath = getDataPath();
 
@@ -33,14 +32,7 @@ const remove = (name) => {
     FileOperator.writeToFile(filePath, data);
   }
 
-  return logger(
-    new Log(
-      index === -1 ? STATUS.FAILED : STATUS.SUCCESS,
-      index === -1
-        ? getErrorMessage(TYPES.NOT_FOUND)
-        : getSuccessMessage(TYPES.REMOVE, "Repository")
-    )
-  );
+  return index;
 };
 
 module.exports = {

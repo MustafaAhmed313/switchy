@@ -7,22 +7,20 @@ const {
   STATUS,
   TYPES,
   getErrorMessage,
-  getSuccessMessage
-} = require('../utils/index')
+  getSuccessMessage,
+} = require("../utils/index");
 
 const update = (name, path) => {
-  if (!name || !path) {
-    return logger(
-      new Log(
-        STATUS.FAILED,
-        getErrorMessage(TYPES.REQUIRED, "Repository name and path are")
-      )
-    );
-  }
+  // if (!name || !path) {
+  //   return logger(
+  //     new Log(
+  //       STATUS.FAILED,
+  //       getErrorMessage(TYPES.REQUIRED, "Repository name and path are")
+  //     )
+  //   );
+  // }
 
-  const data = FileOperator.readFromFile(
-    getDataPath()
-  );
+  const data = FileOperator.readFromFile(getDataPath());
   const parsedData = JsonOperator.parsingJsonData(data);
 
   const [repository] = parsedData["repositories"].filter(
@@ -30,6 +28,7 @@ const update = (name, path) => {
   );
 
   if (!repository) {
+    return "NotExist";
     return logger(
       new Log(STATUS.FAILED, getErrorMessage(TYPES.NOT_FOUND, "Repository"))
     );
@@ -38,6 +37,7 @@ const update = (name, path) => {
   const index = parsedData["repositories"].indexOf(repository);
 
   if (path === repository.path) {
+    return "Similar";
     return logger(
       new Log(STATUS.FAILED, getErrorMessage(TYPES.UPDATE, "path"))
     );
@@ -47,11 +47,9 @@ const update = (name, path) => {
 
   parsedData["repositories"][index] = repository;
   const stringData = JsonOperator.stringDataToWriteinJson(parsedData);
-  FileOperator.writeToFile(
-    getDataPath(),
-    stringData
-  );
+  FileOperator.writeToFile(getDataPath(), stringData);
 
+  return "Updated";
   return logger(
     new Log(
       STATUS.SUCCESS,
