@@ -1,18 +1,16 @@
 class RepoOperator {
-  static getRepoIndexByName = (data, repoName) => {
+  static getRepoIndexByName = (data, name) => {
     for (let i = 0; i < data.length; i++) {
-      if (data[i].name === repoName) return i;
+      if (data[i].name === name) return i;
     }
     return -1;
-    // const result = Array(data).findIndex((el) => el.name === repoName);
-    // return result;
   };
 
   static removeRepoByIndex = (data, index) => {
     data.splice(index, 1);
   };
-  static updataRepo = (data, repoIndex) => {
-    data["repositories"][repoIndex]["lastOpen"] = new Date(
+  static updataRepo = (data, index) => {
+    data["repositories"][index]["lastOpen"] = new Date(
       Date.now()
     ).toUTCString();
   };
