@@ -23,7 +23,6 @@ class RunScript {
 
   static initializeData = () => {
     const path = getPath("../scripts/init.sh");
-    console.log("Path: ", path);
 
     exec(`bash ${path}`, (error, stdout, stderr) => {
       if (error) {
@@ -33,7 +32,6 @@ class RunScript {
         logger(new Log(STATUS.FAILED, stderr));
         return;
       }
-
       logger(new Log(STATUS.SUCCESS, getSuccessMessage(TYPES.INIT)));
     });
   };

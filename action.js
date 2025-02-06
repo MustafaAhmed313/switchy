@@ -23,14 +23,24 @@ const {
   RunScript,
 } = require("./utils/index");
 const { Log } = require("./models/log");
-const missingField = (field) => {
-  return logger(
-    new Log(STATUS.FAILED, getErrorMessage(TYPES.REQUIRED, `${field}`))
-  );
-};
 class Action {
+  static handleEnvAction = () => {
+    // first thing if data file is not exist make data file
+    RunScript.initializeData();
+    // check if data file is empty, if yes then tell use run(init command) initialize it
+    const path = getDataPath();
+    if (fileIsEmpty(path) === "Empty") {
+      logger(
+        new Log(
+          STATUS.HINT,
+          getErrorMessage(TYPES.EMPTY, "data(file not initalize)")
+        )
+      );
+      process.exit();
+    }
+  };
   // Init Command => ARGS: {}
-  static init = () => {
+  static initAction = () => {
     // console.log("hello from init command");
     init();
   };
@@ -81,7 +91,7 @@ class Action {
   // Last Command (Get last opened repo) => ARGS: {}
   static lastAction = () => {
     const repoName = last();
-    logger(new Log(STATUS.FAILED, getSuccessMessage(TYPES.LAST), repoName));
+    logger(new Log(STATUS.SUCCESS, getSuccessMessage(TYPES.LAST), repoName));
   };
   // List Command => ARGS: {}
   static listAction = () => {
@@ -96,18 +106,29 @@ class Action {
         new Log(STATUS.SUCCESS, getSuccessMessage(TYPES.ALL), repos)
       );
   };
-  //   Redirect Command => ARGS: {name}
-  static redirectAction = (args) => {
-    missingField("The repository name");
-    const name = args[0];
-    const message = redirect(name);
+  //   Redirect Command => ARGS: {repoName}
+  static redirectAction = (repoName) => {
+    const message = redirect(repoName);
     // The repo is not found
     return logger(
       new Log(
         message === "NotExist" ? STATUS.FAILED : STATUS.SUCCESS,
         message === "NotExist"
           ? getErrorMessage(TYPES.NOT_FOUND, "repository Name is")
-          : getSuccessMessage(TYPES.REDIRECT, name)
+          : getSuccessMessage(TYPES.REDIRECT, repoName)
+      )
+    );
+  };
+  // Search Command => ARGS: {repoName}
+  static searchAction = (repoName) => {
+    const repo = search(repoName);
+    return logger(
+      new Log(
+        repo === "NotExist" ? STATUS.FAILED : STATUS.SUCCESS,
+        repo === "NotExist"
+          ? getErrorMessage(TYPES.NOT_FOUND, "repository Name is")
+          : getSuccessMessage(TYPES.REPO),
+        repo
       )
     );
   };
@@ -125,28 +146,11 @@ class Action {
       )
     );
   };
-  // Search Command => ARGS: {name}
-  static searchAction = () => {
-    missingField("The repository name");
-    const repo = search();
-    return logger(
-      new Log(
-        repo === "NotExist" ? STATUS.FAILED : STATUS.SUCCESS,
-        repo === "NotExist"
-          ? getErrorMessage(TYPES.NOT_FOUND, "repository Name is")
-          : getSuccessMessage(TYPES.REPO),
-        repo
-      )
-    );
-  };
   //   Update Command => ARGS: {name, newPath}
-  static updateAction = (args) => {
-    // No Params
-    // missingField(args, "The name and newPath");
-    // Path not found
-    const [name, newPath] = [...args];
-    if (!name) missingField("The Repo name");
-    if (!newPath) missingField("The New Path");
+  static updateAction = (repoName, newPath) => {
+    // if (!name) missingField("The Repo name");
+    // // Path not found
+    // if (!newPath) missingField("The New Path");
     if (!pathIsExist(newPath)) {
       logger(
         STATUS.FAILED,
@@ -160,7 +164,7 @@ class Action {
       if (response === "false") {
         logger(new Log(STATUS.FAILED, getErrorMessage(TYPES.REPO)));
       }
-      const message = update(newPath);
+      const message = update(repoName, newPath);
       if (message === "NotExist") {
         return logger(
           new Log(STATUS.FAILED, getErrorMessage(TYPES.NOT_FOUND, "Repository"))
@@ -173,7 +177,7 @@ class Action {
         return logger(
           new Log(
             STATUS.SUCCESS,
-            getSuccessMessage(TYPES.UPDATE, `{${repository.name}} repository`),
+            getSuccessMessage(TYPES.UPDATE, `{${repoName}} repository`),
             repository
           )
         );
