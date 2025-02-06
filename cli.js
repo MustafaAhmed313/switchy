@@ -1,37 +1,68 @@
-const {
-  fileIsEmpty,
-  getDataPath,
-  logger,
-  STATUS,
-  TYPES,
-  getErrorMessage,
-  RunScript
-} = require('./utils/index');
+#!/usr/bin/env node
 
-const { Log } = require("./models/log");
-
-const {
-  add,
-  init,
-  list,
-  remove,
-  update,
-  redirect,
-  search,
-  last,
-  reset
-} = require("./commands/index");
+const { Command } = require("commander");
+const program = new Command();
+const { Action } = require("./action");
 
 // ********************
-// // first thing if data file is not exist make data file
-// RunScript.initializeData();
-// // check if data file is empty, if yes then initialize it
-const path = getDataPath();
-if (fileIsEmpty(path) === "Empty") {
-  logger(new Log(STATUS.FAILED, getErrorMessage(TYPES.EMPTY, "data")));
-  init();
-}
-
+Action.handleEnvAction();
+// ********************
+program
+  .command("init")
+  .description(
+    "Initialize the data file where the repository and its data are stored (no arguments)."
+  )
+  .action(() => {
+    Action.initAction();
+  });
+program
+  .command("add <repoPath>")
+  .description("Add a new repository (arguments: `repoPath`).")
+  .action((repoPath) => {
+    Action.addAction(repoPath);
+  });
+program
+  .command("last")
+  .description("Display the last open repository (no arguments)")
+  .action(() => {
+    Action.lastAction();
+  });
+program
+  .command("list")
+  .description("List all repositories (no arguments).")
+  .action(() => {
+    Action.listAction();
+  });
+program
+  .command("redirect <repoName>")
+  .description("Open specfic repo with his name (arguments: `repoName`")
+  .action(() => {
+    Action.redirectAction(repoName);
+  });
+program
+  .command("search <repoName>")
+  .description(
+    "Search for a repository to get its information by name (argument: `repoName`)"
+  )
+  .action((repoName) => {
+    Action.searchAction(repoName);
+  });
+program
+  .command("remove <repoName>")
+  .description(
+    "Remove a specific repository by its name (arguments: `repoName`)"
+  )
+  .action((repoName) => {
+    Action.removeAction(repoName);
+  });
+program
+  .command("update <repoName> <newPath>")
+  .description(
+    "Update the path of an existing repository (arguments: `repoName`, `newPath`)"
+  )
+  .action((repoName, newPath) => {
+    Action.updateAction(repoName, newPath);
+  });
 // add('D:\\GitRepos\\switchy');
 
 // add("D:/GitRepos/discord");
@@ -49,3 +80,6 @@ if (fileIsEmpty(path) === "Empty") {
 // redirect('switchy');
 
 // reset();
+
+// The line is important for parse args
+program.parse(process.argv);

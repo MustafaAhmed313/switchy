@@ -1,34 +1,13 @@
-const os = require("os");
-
 const { Repository } = require("../models/repository");
 const {
   FileOperator,
   JsonOperator,
-  logger,
-  STATUS,
-  TYPES,
-  getErrorMessage,
-  getSuccessMessage,
-  getDataPath
-} = require('../utils/index'); 
-const { Log } = require("../models/log");
-
-const currentOS = os.type();
+  getDataPath,
+  getName,
+} = require("../utils/index");
 
 const add = (path) => {
-  if (!path) {
-    return logger(
-      new Log(
-        STATUS.FAILED,
-        getErrorMessage(TYPES.REQUIRED, "Repository path is")
-      )
-    );
-  }
-
-  const condition = currentOS === `Linux` || currentOS === `Darwin`;
-  const index = path.lastIndexOf(condition ? "/" : `\\`) + 1;
-  const name = path.substring(index);
-
+  const name = getName(path);
   const repository = new Repository(
     name,
     path,
@@ -38,31 +17,40 @@ const add = (path) => {
   const filePath = getDataPath();
   const data = FileOperator.readFromFile(filePath);
 
-  if (!data) {
-    return logger(new Log(STATUS.FAILED, getErrorMessage(TYPES.INIT)));
-  }
+  // if (!data) {
+  //   return logger(new Log(STATUS.FAILED, getErrorMessage(TYPES.INIT)));
+  // }
 
-  const parsedData = JsonOperator.parsingJsonData(data);
+  let parsedData = JsonOperator.parsingJsonData(data);
 
-  const result = parsedData["repositories"].find((repo) => repo.name === repository.name);
+  const result = parsedData["repositories"].find(
+    (repo) => repo.name === repository.name
+  );
   if (result) {
-    return logger(new Log(STATUS.FAILED, getErrorMessage(TYPES.DUPLICATE, `${repository.name}`)))
+    return "Duplicated";
   }
+  // if (result) {
+  //   return logger(
+  //     new Log(
+  //       STATUS.FAILED,
+  //       getErrorMessage(TYPES.DUPLICATE, `${repository.name}`)
+  //     )
+  //   );
+  // }
 
   parsedData["repositories"].push(repository);
+  parsedData = JsonOperator.stringDataToWriteinJson(parsedData);
+  FileOperator.writeToFile(getDataPath(), parsedData);
 
-  FileOperator.writeToFile(
-    getDataPath(),
-    JSON.stringify(parsedData)
-  );
+  // logger(
+  //   new Log(
+  //     STATUS.SUCCESS,
+  //     getSuccessMessage(TYPES.ADD, "repository"),
+  //     repository
+  //   )
+  // );
 
-  logger(
-    new Log(
-      STATUS.SUCCESS,
-      getSuccessMessage(TYPES.ADD, "repository"),
-      repository
-    )
-  );
+  return "Added";
 };
 
 module.exports = {
