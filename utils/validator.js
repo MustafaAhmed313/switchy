@@ -1,5 +1,6 @@
+const { TAGS } = require("./tags");
 const { FileOperator } = require("../utils/fileOperator");
-const { JsonOperator } = require("../utils/jsonOperator");
+
 const fs = require("fs");
 const pathIsExist = function (path) {
   return fs.existsSync(path);
@@ -14,11 +15,11 @@ const fileIsEmpty = function (path) {
     data === "" ||
     (typeof data === "object" && Object.keys(data).length === 0)
   ) {
-    return "Empty";
+    return TAGS.EMPTY;
   }
 
   // Otherwise, return "NotEmpty"
-  return "NotEmpty";
+  return TAGS.FULL;
 };
 
 module.exports = {

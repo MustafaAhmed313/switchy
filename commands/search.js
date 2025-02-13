@@ -2,7 +2,8 @@ const {
   FileOperator,
   JsonOperator,
   getDataPath,
-  RepoOperator
+  RepoOperator,
+  TAGS
 } = require('../utils/index')
 
 /**
@@ -29,15 +30,15 @@ const search = (name) => {
   data = JsonOperator.parsingJsonData(data);
 
   // Find the index of the repository with the given name
-  const repoIndex = RepoOperator.getRepoIndexByName(data["repositories"], name);
+  const index = RepoOperator.getRepoIndexByName(data["repositories"], name);
 
   // If the repository is not found, return "NotExist"
-  if (repoIndex === -1) {
-    return "NotExist";
+  if (index === -1) {
+    return TAGS.DOES_NOT_EXIST;
   }
 
   // Return the found repository object
-  return data["repositories"][repoIndex];
+  return data["repositories"][index];
 };
 
 // Export the search function for use in other modules
