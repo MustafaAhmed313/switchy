@@ -4,6 +4,7 @@ const {
   JsonOperator,
   getDataPath,
   getName,
+  TAGS,
 } = require("../utils/index");
 
 const add = (path) => {
@@ -17,40 +18,21 @@ const add = (path) => {
   const filePath = getDataPath();
   const data = FileOperator.readFromFile(filePath);
 
-  // if (!data) {
-  //   return logger(new Log(STATUS.FAILED, getErrorMessage(TYPES.INIT)));
-  // }
-
   let parsedData = JsonOperator.parsingJsonData(data);
 
   const result = parsedData["repositories"].find(
     (repo) => repo.name === repository.name
   );
+
   if (result) {
-    return "Duplicated";
+    return { tag: TAGS.DUPLICATED };
   }
-  // if (result) {
-  //   return logger(
-  //     new Log(
-  //       STATUS.FAILED,
-  //       getErrorMessage(TYPES.DUPLICATE, `${repository.name}`)
-  //     )
-  //   );
-  // }
 
   parsedData["repositories"].push(repository);
   parsedData = JsonOperator.stringDataToWriteinJson(parsedData);
   FileOperator.writeToFile(getDataPath(), parsedData);
 
-  // logger(
-  //   new Log(
-  //     STATUS.SUCCESS,
-  //     getSuccessMessage(TYPES.ADD, "repository"),
-  //     repository
-  //   )
-  // );
-
-  return "Added";
+  return {tag: TAGS.ADDED, repository};
 };
 
 module.exports = {

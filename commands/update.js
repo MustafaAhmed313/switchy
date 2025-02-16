@@ -1,24 +1,18 @@
-const { Log } = require("../models/log");
-
 const {
   FileOperator,
   JsonOperator,
-  logger,
-  STATUS,
-  TYPES,
-  getErrorMessage,
-  getSuccessMessage,
+  TAGS,
+  getDataPath
 } = require("../utils/index");
+const { getName } = require("../utils/pathModule");
 
 const update = (name, path) => {
-  // if (!name || !path) {
-  //   return logger(
-  //     new Log(
-  //       STATUS.FAILED,
-  //       getErrorMessage(TYPES.REQUIRED, "Repository name and path are")
-  //     )
-  //   );
-  // }
+
+  const repoName = getName(path);
+
+  if (repoName !== name) {
+    return TAGS.NO_MATCH;
+  }
 
   const data = FileOperator.readFromFile(getDataPath());
   const parsedData = JsonOperator.parsingJsonData(data);
@@ -28,19 +22,13 @@ const update = (name, path) => {
   );
 
   if (!repository) {
-    return "NotExist";
-    return logger(
-      new Log(STATUS.FAILED, getErrorMessage(TYPES.NOT_FOUND, "Repository"))
-    );
+    return TAGS.DOES_NOT_EXIST;
   }
 
   const index = parsedData["repositories"].indexOf(repository);
 
   if (path === repository.path) {
-    return "Similar";
-    return logger(
-      new Log(STATUS.FAILED, getErrorMessage(TYPES.UPDATE, "path"))
-    );
+    return TAGS.DUPLICATED;
   }
 
   repository.path = path;
@@ -49,14 +37,7 @@ const update = (name, path) => {
   const stringData = JsonOperator.stringDataToWriteinJson(parsedData);
   FileOperator.writeToFile(getDataPath(), stringData);
 
-  return "Updated";
-  return logger(
-    new Log(
-      STATUS.SUCCESS,
-      getSuccessMessage(TYPES.UPDATE, `{${repository.name}} repository`),
-      repository
-    )
-  );
+  return TAGS.UPDATED;
 };
 
 module.exports = {

@@ -4,9 +4,6 @@ const { Command } = require("commander");
 const program = new Command();
 const { Action } = require("./action");
 
-// ********************
-Action.handleEnvAction();
-// ********************
 program
   .command("init")
   .description(
@@ -15,71 +12,67 @@ program
   .action(() => {
     Action.initAction();
   });
+
 program
-  .command("add <repoPath>")
-  .description("Add a new repository (arguments: `repoPath`).")
-  .action((repoPath) => {
-    Action.addAction(repoPath);
+  .command("add <path>")
+  .description("Add a new repository (arguments: `path`).")
+  .action((path) => {
+    Action.addAction(path);
   });
+
 program
   .command("last")
-  .description("Display the last open repository (no arguments)")
+  .description("Display the last opened repository (no arguments)")
   .action(() => {
     Action.lastAction();
   });
+
+program
+  .command("reset")
+  .description("Clear all repositories stored (no arguments)")
+  .action(() => {
+    Action.resetAction();
+  });
+
 program
   .command("list")
   .description("List all repositories (no arguments).")
   .action(() => {
     Action.listAction();
   });
+
 program
   .command("redirect <repoName>")
-  .description("Open specfic repo with his name (arguments: `repoName`")
-  .action(() => {
+  .description("Open specfic repo with his repoName (arguments: `repoName`)")
+  .action((repoName) => {
     Action.redirectAction(repoName);
   });
+
 program
-  .command("search <repoName>")
+  .command("find <repoName>")
   .description(
-    "Search for a repository to get its information by name (argument: `repoName`)"
+    "Find for a repository to get its information by repoName (argument: `repoName`)"
   )
   .action((repoName) => {
     Action.searchAction(repoName);
   });
+
 program
   .command("remove <repoName>")
   .description(
-    "Remove a specific repository by its name (arguments: `repoName`)"
+    "Remove a specific repository by its repoName (arguments: `repoName`)"
   )
   .action((repoName) => {
     Action.removeAction(repoName);
   });
+
 program
-  .command("update <repoName> <newPath>")
+  .command("update <repoName> <path>")
   .description(
-    "Update the path of an existing repository (arguments: `repoName`, `newPath`)"
+    "Update the path of an existing repository (arguments: `repoName`, `path`)"
   )
-  .action((repoName, newPath) => {
-    Action.updateAction(repoName, newPath);
+  .action((repoName, path) => {
+    Action.updateAction(repoName, path);
   });
-// add('D:\\GitRepos\\switchy');
 
-// add("D:/GitRepos/discord");
-
-// add("D:/GitRepos/facebook");
-// add("D:/GitRepos/online-shopping");
-// add("D:/GitRepos/order-notification-management");
-// console.log("from cli : ", redirect("discord"));
-// // list()
-
-// console.log(search("facebook"));
-// console.log(last());
-
-// list();
-// redirect('switchy');
-
-// reset();
-
-// The line is important for parse args
 program.parse(process.argv);

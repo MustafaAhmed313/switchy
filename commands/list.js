@@ -1,20 +1,14 @@
-const { Log } = require("../models/log");
-
 const {
   FileOperator,
   JsonOperator,
-  logger,
-  STATUS,
-  TYPES,
-  getErrorMessage,
-  getSuccessMessage,
   getDataPath,
+  TAGS,
 } = require("../utils/index");
 
 const list = () => {
   const data = FileOperator.readFromFile(getDataPath());
   if (!data) {
-    return "Empty";
+    return TAGS.EMPTY;
   }
   const parsedData = JsonOperator.parsingJsonData(data);
 

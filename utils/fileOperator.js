@@ -1,9 +1,13 @@
 const fs = require("fs");
 
 const { Log } = require("../models/log");
-const { logger, STATUS } = require("./logger");
+
+const { 
+  logger, 
+  STATUS 
+} = require("./logger");
+
 const {
-  getSuccessMessage,
   getErrorMessage,
   TYPES,
 } = require("./messageHandler");

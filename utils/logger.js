@@ -2,9 +2,8 @@ const logger = (log) => {
   const statusColor =
     log.status === STATUS.SUCCESS
       ? CONSOLE_COLORS.SUCCESS
-      : STATUS.FAILED
-      ? CONSOLE_COLORS.FAILED
-      : CONSOLE_COLORS.HINT;
+      : CONSOLE_COLORS.FAILED;
+
   const dataColor = CONSOLE_COLORS.DATA;
   if (log) {
     console.log(`[${statusColor}${log.status}\x1b[0m]: ${log.message}`);
@@ -18,7 +17,6 @@ const logger = (log) => {
 const STATUS = {
   SUCCESS: "SUCCESS",
   FAILED: "FAILED",
-  HINT: "hINT",
 };
 
 const CONSOLE_COLORS = {

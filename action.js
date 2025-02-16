@@ -1,3 +1,5 @@
+const os = require('os');
+
 const {
   add,
   update,
@@ -9,30 +11,36 @@ const {
   last,
   reset,
 } = require("./commands/index");
+
 const {
   logger,
   STATUS,
   TYPES,
   getDataPath,
-  getPath,
   getErrorMessage,
   getSuccessMessage,
   fileIsEmpty,
   pathIsExist,
   getName,
   RunScript,
+  TAGS,
 } = require("./utils/index");
+
 const { Log } = require("./models/log");
 class Action {
   static handleEnvAction = () => {
     // first thing if data file is not exist make data file
-    RunScript.initializeData();
+    if (os.platform() === 'linux' || os.platform() === 'darwin') {
+      RunScript.initializeData();
+    } else {
+      RunScript.initializeDataPowerShell();
+    } 
     // check if data file is empty, if yes then tell use run(init command) initialize it
     const path = getDataPath();
-    if (fileIsEmpty(path) === "Empty") {
+    if (fileIsEmpty(path) === TAGS.EMPTY) {
       logger(
         new Log(
-          STATUS.HINT,
+          STATUS.FAILED,
           getErrorMessage(TYPES.EMPTY, "data(file not initalize)")
         )
       );
@@ -41,160 +49,205 @@ class Action {
   };
   // Init Command => ARGS: {}
   static initAction = () => {
-    // console.log("hello from init command");
     init();
+    return logger(
+      new Log(STATUS.SUCCESS, getSuccessMessage(TYPES.INIT)));
   };
 
+  // reset Command => ARGS {}
+  static resetAction = () => {
+    reset();
+    return logger(
+      new Log(STATUS.SUCCESS, getSuccessMessage(TYPES.RESET)));
+  }
+
   // Add Command => ARGS: {path}   ==> we have a problem with path (if user write all path you don't need getPath and if write simple path you need getPath)
-  static addAction = (repoPath) => {
+  static addAction = (path) => {
     // No Params
-    if (!repoPath)
-      return logger(
-        new Log(STATUS.FAILED, getErrorMessage(TYPES.REQUIRED, `The path`))
+    if (!path) {
+      logger(
+        new Log(
+          STATUS.FAILED, 
+          getErrorMessage(TYPES.REQUIRED, `The repository path`))
       );
+      return TAGS.MISSING;
+    }
     // Path not found
-    if (!pathIsExist(repoPath)) {
-      return logger(
+    if (!pathIsExist(path)) {
+      logger(
         new Log(
           STATUS.FAILED,
-          getErrorMessage(TYPES.NOT_FOUND, "Repository path is")
-        )
-      );
+          getErrorMessage(TYPES.NOT_FOUND, "repository path is")
+        ));
+      return TAGS.DOES_NOT_EXIST;
     }
 
-    // Path is not a repo (dotGitIsExist(repoPath) is async function)
     (async () => {
-      const response = await RunScript.dotGitIsExist(repoPath);
-      if (response === "false") {
-        return logger(new Log(STATUS.FAILED, getErrorMessage(TYPES.REPO)));
-      }
-      const message = add(repoPath);
-      const repoName = getName(repoPath);
-      if (message === "Duplicated") {
-        return logger(
-          new Log(
-            STATUS.FAILED,
-            getErrorMessage(TYPES.DUPLICATE, `${repoName}}`)
-          )
-        );
+      let response;
+      
+      if (os.platform() === 'linux' || os.platform() === 'darwin') {
+        response = await RunScript.dotGitIsExist(path);
       } else {
-        return logger(
-          new Log(
-            STATUS.SUCCESS,
-            getSuccessMessage(TYPES.ADD, `The Repository ${repoName}`)
-          )
-        );
+        response = await RunScript.dotGitIsExistPowerShell(path);
+      }
+
+      // TODO: ignore adding any file that not a github repository.
+
+      if (response === "false") {
+        logger(new Log(STATUS.FAILED, getErrorMessage(TYPES.DOT_GIT)));
+        return TAGS.NOT_GIT_REPO;
       }
     })();
+
+    const message = add(path);      
+    const name = getName(path);
+    
+    if (message.tag === TAGS.DUPLICATED) {
+      logger(
+        new Log(
+          STATUS.FAILED,
+          getErrorMessage(TYPES.DUPLICATE, `{${name}}`)
+        ));
+    } else {
+      logger(
+        new Log(
+          STATUS.SUCCESS,
+          getSuccessMessage(TYPES.ADD, `The Repository ${name}`),
+          message.repository
+        ));
+    }
+    return message.tag; 
   };
 
   // Last Command (Get last opened repo) => ARGS: {}
   static lastAction = () => {
-    const repoName = last();
-    logger(new Log(STATUS.SUCCESS, getSuccessMessage(TYPES.LAST), repoName));
+    const name = last();
+    logger(new Log(STATUS.SUCCESS, getSuccessMessage(TYPES.LAST), name));
   };
   // List Command => ARGS: {}
   static listAction = () => {
-    const repos = list();
+    const repositories = list();
 
-    if (repos === "Empty") {
+    if (repositories === TAGS.EMPTY) {
       return logger(
         new Log(STATUS.SUCCESS, getErrorMessage(TYPES.EMPTY, "repositories"))
       );
     } else
       return logger(
-        new Log(STATUS.SUCCESS, getSuccessMessage(TYPES.ALL), repos)
+        new Log(STATUS.SUCCESS, getSuccessMessage(TYPES.ALL), repositories)
       );
   };
-  //   Redirect Command => ARGS: {repoName}
+  //   Redirect Command => ARGS: {name}
   static redirectAction = (repoName) => {
     const message = redirect(repoName);
-    // The repo is not found
-    return logger(
+    logger(
       new Log(
-        message === "NotExist" ? STATUS.FAILED : STATUS.SUCCESS,
-        message === "NotExist"
-          ? getErrorMessage(TYPES.NOT_FOUND, "repository Name is")
+        message === TAGS.DOES_NOT_EXIST ? STATUS.FAILED : STATUS.SUCCESS,
+        message === TAGS.DOES_NOT_EXIST
+          ? getErrorMessage(TYPES.NOT_FOUND, `repository {${repoName}} is`)
           : getSuccessMessage(TYPES.REDIRECT, repoName)
       )
     );
+    // The repo is not found
+    return message; 
   };
-  // Search Command => ARGS: {repoName}
-  static searchAction = (repoName) => {
-    const repo = search(repoName);
-    return logger(
-      new Log(
-        repo === "NotExist" ? STATUS.FAILED : STATUS.SUCCESS,
-        repo === "NotExist"
-          ? getErrorMessage(TYPES.NOT_FOUND, "repository Name is")
-          : getSuccessMessage(TYPES.REPO),
-        repo
-      )
-    );
+  // Search Command => ARGS: {name}
+  static searchAction = (name) => {
+    const repository = search(name);
+    if (repository === TAGS.DOES_NOT_EXIST) {
+      logger(new Log(
+        STATUS.FAILED,
+        getErrorMessage(TYPES.NOT_FOUND, `repository ${name} is`)
+      ));
+      return repository; 
+    } else {
+      logger(new Log(
+        STATUS.SUCCESS,
+        getSuccessMessage(TYPES.DOT_GIT),
+        repository
+      ));
+      return TAGS.EXIST; 
+    }
   };
   // Remove Command => ARGS: {name}
-  static removeAction = (repoName) => {
+  static removeAction = (name) => {
     // Commander handle error for missing fields
-    const index = remove(repoName);
+    const message = remove(name);
     // The repo is not found
-    return logger(
+    logger(
       new Log(
-        index === -1 ? STATUS.FAILED : STATUS.SUCCESS,
-        index === -1
-          ? getErrorMessage(TYPES.NOT_FOUND)
-          : getSuccessMessage(TYPES.REMOVE, "Repository")
+        message !== TAGS.REMOVED ? STATUS.FAILED : STATUS.SUCCESS,
+        message !== TAGS.REMOVED
+          ? getErrorMessage(TYPES.NOT_FOUND, `repository ${name} is`)
+          : getSuccessMessage(TYPES.REMOVE)
       )
     );
+    return message; 
   };
-  //   Update Command => ARGS: {name, newPath}
-  static updateAction = (repoName, newPath) => {
-    // if (!name) missingField("The Repo name");
-    // // Path not found
-    // if (!newPath) missingField("The New Path");
-    if (!pathIsExist(newPath)) {
+  //   Update Command => ARGS: {name, path}
+  static updateAction = (name, path) => {
+    if (!name || !path) {
+      logger(
+        new Log(
+          STATUS.FAILED,
+          getErrorMessage(TYPES.REQUIRED, "Repository name and path are")
+        )
+      );
+      return TAGS.MISSING;
+    }
+
+    if (!pathIsExist(path)) {
       logger(
         STATUS.FAILED,
         getErrorMessage(TYPES.NOT_FOUND, "Repository path is")
       );
+      return TAGS.DOES_NOT_EXIST;
     }
 
-    // Path is not a repo (dotGitIsExist(repoPath) is async function)
+    // Path is not a repo (dotGitIsExist(path) is async function)
     (async () => {
-      const response = await RunScript.dotGitIsExist(newPath);
-      if (response === "false") {
-        logger(new Log(STATUS.FAILED, getErrorMessage(TYPES.REPO)));
-      }
-      const message = update(repoName, newPath);
-      if (message === "NotExist") {
-        return logger(
-          new Log(STATUS.FAILED, getErrorMessage(TYPES.NOT_FOUND, "Repository"))
-        );
-      } else if (message === "Similar") {
-        return logger(
-          new Log(STATUS.FAILED, getErrorMessage(TYPES.UPDATE, "path"))
-        );
+      let response;
+      
+      if (os.platform() === 'linux' || os.platform() === 'darwin') {
+        response = await RunScript.dotGitIsExist(path);
       } else {
-        return logger(
-          new Log(
-            STATUS.SUCCESS,
-            getSuccessMessage(TYPES.UPDATE, `{${repoName}} repository`),
-            repository
-          )
-        );
+        response = await RunScript.dotGitIsExistPowerShell(path);
+      }
+
+      // TODO: ignore adding any file that not a github repository.
+
+      if (response === "false") {
+        logger(new Log(STATUS.FAILED, getErrorMessage(TYPES.DOT_GIT)));
+        return TAGS.NOT_GIT_REPO;
       }
     })();
-  };
-}
-// add
-// init
-// last
-// list
-// redirect
-// remove
-// search
-// update
 
-// remind =>
-// reset
+    const message = update(name, path);
+
+    if (message === TAGS.NO_MATCH) {
+      logger(
+        new Log(STATUS.FAILED, getErrorMessage(TYPES.MATCH)));
+    } else if (message === TAGS.DOES_NOT_EXIST) {
+      logger(
+        new Log(STATUS.FAILED, 
+          getErrorMessage(TYPES.NOT_FOUND, `repository ${name} is`)) 
+      );
+    } else if (message === TAGS.DUPLICATED) {
+      logger(
+        new Log(STATUS.FAILED, getErrorMessage(TYPES.UPDATE, "path")) 
+      );
+    } else {
+      const repository = search(`${name}`);
+      logger(
+        new Log(
+          STATUS.SUCCESS,
+          getSuccessMessage(TYPES.UPDATE, `{${name}} repository`),
+          repository
+        )
+      ); 
+    }
+    return message;
+  }
+}
 
 module.exports = { Action };

@@ -1,6 +1,5 @@
 const TYPES = {
   NOT_FOUND: "not-found",
-  INVALID: "invalid",
   FILE_READ: "file-read",
   FILE_WRITE: "file-write",
   PARSE: "parse-json",
@@ -9,7 +8,7 @@ const TYPES = {
   VSCODE: "vscode",
   DUPLICATE: "duplicate",
   // features
-  REPO: "repo",
+  DOT_GIT: ".git",
   ADD: "add",
   UPDATE: "update",
   REMOVE: "remove",
@@ -19,6 +18,7 @@ const TYPES = {
   INIT: "init",
   RESET: "reset",
   REDIRECT: "redirect",
+  MATCH: "match"
 };
 
 let message;
@@ -58,8 +58,11 @@ const getErrorMessage = (type, field) => {
     case TYPES.DUPLICATE:
       message = `There is already an existing ${field} repository!`;
       break;
-    case TYPES.REPO:
+    case TYPES.DOT_GIT:
       message = `The path is not a repository!`;
+      break;
+    case TYPES.MATCH:
+      message = `The repository name doesn't match the old one!`;
       break;
   }
 
@@ -105,10 +108,10 @@ const getSuccessMessage = (type, field) => {
       message = "The last repository opened is :";
       break;
     case TYPES.REDIRECT:
-      message = `The Repo ${field} has been opened successfully!`;
+      message = `The repository ${field} is opened successfully!`;
       break;
-    case TYPES.REPO:
-      message = `Repo Info:`;
+    case TYPES.DOT_GIT:
+      message = `Repository Info:`;
       break;
   }
 

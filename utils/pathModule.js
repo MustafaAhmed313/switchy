@@ -1,6 +1,8 @@
 const path = require("path");
-const config = require("../config/config");
 const os = require("os");
+
+const config = require("../config/config");
+
 exports.getDataPath = function () {
   return path.join(
     __dirname,
@@ -8,8 +10,8 @@ exports.getDataPath = function () {
   );
 };
 
-exports.getPath = function (pathFile) {
-  return path.join(__dirname, pathFile);
+exports.getPath = function (filePath) {
+  return path.join(__dirname, filePath);
 };
 
 exports.getName = function (path) {

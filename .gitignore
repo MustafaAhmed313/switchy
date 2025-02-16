@@ -133,11 +133,11 @@ dist
 # Data Directory
 data
 
-# Configuration Directory
-config/
-
 docs/
 
+#Test Directory
+
+tests/
 
 Implement Action Class
 
