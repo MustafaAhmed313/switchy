@@ -133,7 +133,6 @@ dist
 # Data Directory
 data
 
-docs/
 
 #Test Directory
 tests/
