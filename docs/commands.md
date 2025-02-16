@@ -1,18 +1,14 @@
-Here's a well-structured explanation of each command along with its usage:
-
----
-
-# **Swichy CLI Commands Reference**
+# **Swichy CLI Commands Reference**:
 
 Swichy provides a simple command-line interface for managing repositories. Below is a detailed breakdown of available commands, their syntax, and usage.
 
-## **Options**
+## **Options**:
 
 - `-h, --help` → Display help information for the CLI or a specific command.
 
-## **Commands & Usage**
+## **Commands & Usage**:
 
-### 1. **Initialize Storage**
+### 1. **Initialize Storage**:
 
 ```bash
 switchy init
@@ -21,7 +17,7 @@ switchy init
 - Initializes the data file where repository information is stored.
 - **Arguments:** None
 
-### 2. **Add a New Repository**
+### 2. **Add a New Repository**:
 
 ```bash
 switchy add <path>
@@ -37,7 +33,7 @@ switchy add <path>
 switchy add /home/user/projects/my-repo
 ```
 
-### 3. **Display Last Opened Repository**
+### 3. **Display Last Opened Repository**:
 
 ```bash
 switchy last
@@ -46,7 +42,7 @@ switchy last
 - Displays the most recently accessed repository.
 - **Arguments:** None
 
-### 4. **Clear All Repositories**
+### 4. **Clear All Repositories**:
 
 ```bash
 switchy reset
@@ -55,7 +51,7 @@ switchy reset
 - Removes all stored repositories from the system.
 - **Arguments:** None
 
-### 5. **List All Stored Repositories**
+### 5. **List All Stored Repositories**:
 
 ```bash
 switchy list
@@ -64,7 +60,7 @@ switchy list
 - Displays a list of all stored repositories.
 - **Arguments:** None
 
-### 6. **Redirect to a Repository**
+### 6. **Redirect to a Repository**:
 
 ```bash
 switchy redirect <repoName>
@@ -80,7 +76,7 @@ switchy redirect <repoName>
 switchy redirect my-repo
 ```
 
-### 7. **Find Repository Information**
+### 7. **Find Repository Information**:
 
 ```bash
 switchy find <repoName>
@@ -96,7 +92,7 @@ switchy find <repoName>
 switchy find my-repo
 ```
 
-### 8. **Remove a Specific Repository**
+### 8. **Remove a Specific Repository**:
 
 ```bash
 switchy remove <repoName>
@@ -112,7 +108,7 @@ switchy remove <repoName>
 switchy remove my-repo
 ```
 
-### 9. **Update a Repository Path**
+### 9. **Update a Repository Path**:
 
 ```bash
 switchy update <repoName> <path>
@@ -129,7 +125,7 @@ switchy update <repoName> <path>
 switchy update my-repo /home/user/new-location/my-repo
 ```
 
-### 10. **Display Help for a Specific Command**
+### 10. **Display Help for a Specific Command**:
 
 ```bash
 switchy help [command]
@@ -146,5 +142,3 @@ switchy help add
 ```
 
 ---
-
-This structure makes it easy for users to understand and use Swichy effectively. Let me know if you'd like any tweaks! 🚀
