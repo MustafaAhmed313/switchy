@@ -91,32 +91,31 @@ class Action {
         response = await RunScript.dotGitIsExistPowerShell(path);
       }
 
-      // TODO: ignore adding any file that not a github repository.
-
       if (response === "false") {
         logger(new Log(STATUS.FAILED, getErrorMessage(TYPES.DOT_GIT)));
         return TAGS.NOT_GIT_REPO;
       }
+
+      const message = add(path);      
+      const name = getName(path);
+      
+      if (message.tag === TAGS.DUPLICATED) {
+        logger(
+          new Log(
+            STATUS.FAILED,
+            getErrorMessage(TYPES.DUPLICATE, `{${name}}`)
+          ));
+      } else {
+        logger(
+          new Log(
+            STATUS.SUCCESS,
+            getSuccessMessage(TYPES.ADD, `The Repository ${name}`),
+            message.repository
+          ));
+      }
+      return message.tag; 
     })();
 
-    const message = add(path);      
-    const name = getName(path);
-    
-    if (message.tag === TAGS.DUPLICATED) {
-      logger(
-        new Log(
-          STATUS.FAILED,
-          getErrorMessage(TYPES.DUPLICATE, `{${name}}`)
-        ));
-    } else {
-      logger(
-        new Log(
-          STATUS.SUCCESS,
-          getSuccessMessage(TYPES.ADD, `The Repository ${name}`),
-          message.repository
-        ));
-    }
-    return message.tag; 
   };
 
   // Last Command (Get last opened repo) => ARGS: {}
@@ -220,33 +219,34 @@ class Action {
         logger(new Log(STATUS.FAILED, getErrorMessage(TYPES.DOT_GIT)));
         return TAGS.NOT_GIT_REPO;
       }
+      
+      const message = update(name, path);
+  
+      if (message === TAGS.NO_MATCH) {
+        logger(
+          new Log(STATUS.FAILED, getErrorMessage(TYPES.MATCH)));
+      } else if (message === TAGS.DOES_NOT_EXIST) {
+        logger(
+          new Log(STATUS.FAILED, 
+            getErrorMessage(TYPES.NOT_FOUND, `repository ${name} is`)) 
+        );
+      } else if (message === TAGS.DUPLICATED) {
+        logger(
+          new Log(STATUS.FAILED, getErrorMessage(TYPES.UPDATE, "path")) 
+        );
+      } else {
+        const repository = search(`${name}`);
+        logger(
+          new Log(
+            STATUS.SUCCESS,
+            getSuccessMessage(TYPES.UPDATE, `{${name}} repository`),
+            repository
+          )
+        ); 
+      }
+      return message;
     })();
 
-    const message = update(name, path);
-
-    if (message === TAGS.NO_MATCH) {
-      logger(
-        new Log(STATUS.FAILED, getErrorMessage(TYPES.MATCH)));
-    } else if (message === TAGS.DOES_NOT_EXIST) {
-      logger(
-        new Log(STATUS.FAILED, 
-          getErrorMessage(TYPES.NOT_FOUND, `repository ${name} is`)) 
-      );
-    } else if (message === TAGS.DUPLICATED) {
-      logger(
-        new Log(STATUS.FAILED, getErrorMessage(TYPES.UPDATE, "path")) 
-      );
-    } else {
-      const repository = search(`${name}`);
-      logger(
-        new Log(
-          STATUS.SUCCESS,
-          getSuccessMessage(TYPES.UPDATE, `{${name}} repository`),
-          repository
-        )
-      ); 
-    }
-    return message;
   }
 }
 
