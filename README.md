@@ -7,30 +7,30 @@
                                                                                       |___/
 ```
 
-## Table of contents
+## Table of contents:
 
-- [Table of contents](#table-of-contents)
-- [Problem Statement](#problem-statement)
-- [Solution](#solution)
-- [Features](#features)
-  - [Functional Requirements](#functional-requirements)
-  - [Non-Functional Requirements](#non-functional-requirements)
-- [Installation](#installation)
-- [Contributors](#contributors)
-  - [Developers](#developers)
-- [Suggestions](#suggestions)
+- [Table of contents:](#table-of-contents)
+- [Problem Statement:](#problem-statement)
+- [Solution:](#solution)
+- [Features:](#features)
+  - [Functional Requirements:](#functional-requirements)
+  - [Non-Functional Requirements:](#non-functional-requirements)
+- [Installation:](#installation)
+- [Contributors:](#contributors)
+  - [Developers:](#developers)
+- [Suggestions:](#suggestions)
 
-## Problem Statement
+## Problem Statement:
 
 Managing multiple repositories on a local device can be cumbersome, requiring manual tracking of paths, frequent navigation, and inefficient switching between projects. Developers often struggle with quickly accessing their most-used repositories and maintaining an organized workflow.
 
-## Solution
+## Solution:
 
 Swichy provides a simple command-line interface to streamline repository management. By offering intuitive commands for adding, listing, updating, and accessing repositories, Swichy enhances productivity, reduces manual effort, and ensures seamless repository navigation. With efficient storage and retrieval mechanisms, Swichy simplifies the developer experience.
 
-## Features
+## Features:
 
-### Functional Requirements
+### Functional Requirements:
 
 Swichy is a command-line interpreter designed for easy management of repositories on a local device. The following are the functional requirements:
 
@@ -53,7 +53,7 @@ Swichy is a command-line interpreter designed for easy management of repositorie
 
   - `Help Command`: The system must provide a help command to display information about available commands and their usage.
 
-### Non-Functional Requirements
+### Non-Functional Requirements:
 
 - **Performance**
 
@@ -93,7 +93,7 @@ Swichy is a command-line interpreter designed for easy management of repositorie
   - The design should allow for future extensions, such as remote repository support or integration with version control systems.
     f
 
-## Installation
+## Installation:
 
 - Install Node.js  
   Follow the instructions from the [official Node.js website](https://nodejs.org/) to install the latest version.
@@ -104,7 +104,7 @@ Swichy is a command-line interpreter designed for easy management of repositorie
   ```
 - [Documentation](./docs/commands.md)
 
-## Contributors
+## Contributors:
 
 Swichy is an open-source project, and contributions from developers are highly encouraged. Contributors can help improve the project in the following ways:
 
@@ -113,12 +113,12 @@ Swichy is an open-source project, and contributions from developers are highly e
 - **Documentation**: Improving and expanding project documentation to help users and developers.
 - **Testing**: Assisting with testing and quality assurance to ensure robustness.
 
-### Developers
+### Developers:
 
 - [MustafaAhmed313](https://github.com/MustafaAhmed313)
 - [Abdelrahman122003](https://github.com/Abdelrahman122003)
 
-## Suggestions
+## Suggestions:
 
 We welcome feedback and feature requests to enhance Swichy. If you have ideas for improvements, feel free to:
 
