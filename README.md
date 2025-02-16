@@ -100,7 +100,7 @@ Swichy is a command-line interpreter designed for easy management of repositorie
 
 - Install the package
   ```bash
-  npm install switchy
+  npm install switchy-cli
   ```
 - [Documentation](./docs/commands.md)
 
