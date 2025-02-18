@@ -99,8 +99,8 @@ Swichy is a command-line interpreter designed for easy management of repositorie
   Follow the instructions from the [official Node.js website](https://nodejs.org/) to install the latest version.
 
 - Install the package
-  ```bash
-  npm install switchy-cli
+  ```shell
+  npm install switchy-cli --global
   ```
 - [Documentation](./docs/commands.md)
 
