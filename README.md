@@ -1,10 +1,10 @@
 ```txt
-                              ____               _   _            _
-                             / ___|  __      __ (_) | |_    ___  | |__    _   _
-                             \___ \  \ \ /\ / / | | | __|  / __| | '_ \  | | | |
-                              ___) |  \ V  V /  | | | |_  | (__  | | | | | |_| |
-                             |____/    \_/\_/   |_|  \__|  \___| |_| |_|  \__, |
-                                                                          |___/
+                      ____               _   _            _
+                      / ___|  __      __ (_) | |_    ___  | |__    _   _
+                      \___ \  \ \ /\ / / | | | __|  / __| | '_ \  | | | |
+                      ___) |   \ V  V /  | | | |_  | (__  | | | | | |_| |
+                      |____/    \_/\_/   |_|  \__|  \___| |_| |_|  \__, |
+                                                                   |___/
 ```
 
 ## Table of contents:
@@ -100,7 +100,7 @@ Swichy is a command-line interpreter designed for easy management of repositorie
 
 - Install the package
   ```bash
-  npm install switchy-cli
+  npm install switchy-cli --global
   ```
 - [Documentation](./docs/commands.md)
 
