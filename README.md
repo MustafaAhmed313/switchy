@@ -57,41 +57,35 @@ Swichy is a command-line interpreter designed for easy management of repositorie
 
 - **Performance**
 
-  - The system should execute commands efficiently, with minimal latency.
+  - The system executes commands efficiently, with minimal latency.
   - It should be optimized to handle a large number of repositories without significant performance degradation.
-
-- **Security**
-
-  - Repository data must be stored securely in a structured format.
-  - The system should prevent unauthorized modifications to the repository list.
 
 - **Usability**
 
-  - The CLI must provide clear error messages when invalid commands or arguments are used.
+  - The CLI provides clear error messages when invalid commands or arguments are used.
   - The command outputs should be human-readable and formatted for clarity.
 
 - **Maintainability**
 
-  - The code should follow modular principles to allow easy updates and modifications.
+  - The code follows modular principles to allow easy updates and modifications.
   - It should be well-documented for future improvements and debugging.
 
 - **Portability**
 
-  - The system should be platform-independent and run on major operating systems (Linux, macOS, Windows).
+  - The system is platform-independent and run on major operating systems (Linux, macOS, Windows).
 
 - **Reliability**
 
-  - The system should ensure that repository data is not lost or corrupted due to unexpected failures.
-  - It should include basic validation to prevent incorrect data from being stored.
+  - The system ensures that repository data is not lost or corrupted due to unexpected failures.
+  - It includes basic validation to prevent incorrect data from being stored.
 
 - **Scalability**
 
-  - The system should be able to support an increasing number of repositories without requiring significant changes to its architecture.
+  - The system is able to support an increasing number of repositories without requiring significant changes to its architecture.
 
 - **Extensibility**
 
-  - The design should allow for future extensions, such as remote repository support or integration with version control systems.
-    f
+  - The design allows for future extensions, such as remote repository support or integration with version control systems.
 
 ## Installation:
 
