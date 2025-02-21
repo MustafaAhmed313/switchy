@@ -99,7 +99,7 @@ Swichy is a command-line interpreter designed for easy management of repositorie
   npm install switchy-cli --global
   ```
   
-- [Documentation](./docs/commands.md)
+- [Documentation on Gitub](https://github.com/MustafaAhmed313/switchy/blob/develop/docs/commands.md)
 
 ## Contributors:
 
