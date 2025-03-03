@@ -29,8 +29,11 @@ class FileOperator {
 
   static writeToFile = function (file, data) {
     try {
-      fs.mkdirSync(getDirPath());
-      fs.writeFile(file, data, "utf-8");
+      const dirPath = getDirPath();
+      if (!fs.existsSync(dirPath)) {
+        fs.mkdirSync(getDirPath());
+      }
+      fs.writeFileSync(file, data, "utf-8");
     } catch (err) {
       logger(new Log(STATUS.FAILED, getErrorMessage(TYPES.FILE_WRITE)));
       process.exit(0);

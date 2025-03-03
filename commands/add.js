@@ -32,7 +32,7 @@ const add = (path) => {
   parsedData = JsonOperator.stringDataToWriteinJson(parsedData);
   FileOperator.writeToFile(getDataPath(), parsedData);
 
-  return {tag: TAGS.ADDED, repository};
+  return { tag: TAGS.ADDED, repository };
 };
 
 module.exports = {
