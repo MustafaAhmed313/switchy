@@ -6,6 +6,6 @@ DIR_PATH="$1"
 # Check if the .git directory exists in the provided path
 if [ -d "$DIR_PATH/.git" ]; then
   echo "true"
-else
+else 
   echo "false"
 fi

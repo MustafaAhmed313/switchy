@@ -1,6 +1,6 @@
 {
   "name": "switchy-cli",
-  "version": "1.0.5",
+  "version": "1.2.0",
   "description": "Repository Manager",
   "main": "cli.js",
   "bin": {

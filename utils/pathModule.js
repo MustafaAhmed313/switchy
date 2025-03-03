@@ -10,6 +10,13 @@ exports.getDataPath = function () {
   );
 };
 
+exports.getDirPath = function () {
+  return path.join(
+    __dirname,
+    `../${config.DIRECTORY_DATA}`
+  );
+};
+
 exports.getPath = function (filePath) {
   return path.join(__dirname, filePath);
 };
