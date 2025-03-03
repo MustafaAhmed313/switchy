@@ -2,15 +2,19 @@ const fs = require("fs");
 
 const { Log } = require("../models/log");
 
-const { 
-  logger, 
-  STATUS 
+const {
+  logger,
+  STATUS
 } = require("./logger");
 
 const {
   getErrorMessage,
   TYPES,
 } = require("./messageHandler");
+
+const {
+  getDirPath
+} = require("./pathModule");
 
 class FileOperator {
   static readFromFile = function (file) {
@@ -19,14 +23,17 @@ class FileOperator {
       return data;
     } catch (err) {
       logger(new Log(STATUS.FAILED, getErrorMessage(TYPES.FILE_READ)));
+      process.exit(0);
     }
   };
 
   static writeToFile = function (file, data) {
     try {
-      fs.writeFileSync(file, data, "utf-8");
+      fs.mkdirSync(getDirPath());
+      fs.writeFile(file, data, "utf-8");
     } catch (err) {
       logger(new Log(STATUS.FAILED, getErrorMessage(TYPES.FILE_WRITE)));
+      process.exit(0);
     }
   };
 }
