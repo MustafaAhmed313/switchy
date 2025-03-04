@@ -2,12 +2,10 @@ const { FileOperator } = require("./fileOperator");
 const { JsonOperator } = require("./jsonOperator");
 const { RepoOperator } = require("./repoOperator");
 const { RunScript } = require("./runScript");
-const { TAGS } = require('./tags')
 
-const { 
-  logger, 
-  STATUS 
-} = require("./logger");
+const { TAGS } = require("./tags");
+
+const { logger, STATUS } = require("./logger");
 
 const {
   TYPES,
@@ -15,16 +13,9 @@ const {
   getSuccessMessage,
 } = require("./messageHandler");
 
-const { 
-  getDataPath, 
-  getPath, 
-  getName 
-} = require("./pathModule");
+const { getDataPath, getPath, getName } = require("./pathModule");
 
-const { 
-  fileIsEmpty, 
-  pathIsExist 
-} = require("./validator");
+const { fileIsEmpty, pathIsExist } = require("./validator");
 
 const utils = {
   FileOperator,
@@ -41,7 +32,7 @@ const utils = {
   pathIsExist,
   getName,
   RunScript,
-  TAGS
+  TAGS,
 };
 
 module.exports = utils;

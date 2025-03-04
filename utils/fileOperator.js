@@ -1,20 +1,9 @@
 const fs = require("fs");
-
+const config = require("../config/config");
 const { Log } = require("../models/log");
-
-const {
-  logger,
-  STATUS
-} = require("./logger");
-
-const {
-  getErrorMessage,
-  TYPES,
-} = require("./messageHandler");
-
-const {
-  getDirPath
-} = require("./pathModule");
+const { logger, STATUS } = require("./logger");
+const { getErrorMessage, TYPES } = require("./messageHandler");
+const { getPath } = require("./pathModule");
 
 class FileOperator {
   static readFromFile = function (file) {
@@ -29,9 +18,9 @@ class FileOperator {
 
   static writeToFile = function (file, data) {
     try {
-      const dirPath = getDirPath();
+      const dirPath = getPath(`../${config.DIRECTORY_DATA}`);
       if (!fs.existsSync(dirPath)) {
-        fs.mkdirSync(getDirPath());
+        fs.mkdirSync(dirPath);
       }
       fs.writeFileSync(file, data, "utf-8");
     } catch (err) {
