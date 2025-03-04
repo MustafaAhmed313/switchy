@@ -136,8 +136,3 @@ data
 
 #Test Directory
 tests/
-
-Implement Action Class
-
-- Action class and add script dotGitIsExist
-- make action class to use it in cli.js  and dotGitIsExist for check existence of .git file
