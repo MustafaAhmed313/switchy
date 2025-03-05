@@ -6,33 +6,45 @@
                       |____/    \_/\_/   |_|  \__|  \___| |_| |_|  \__, |
                                                                    |___/
 ```
+<details>
+  <summary> 🔢 ## Table of contents</summary>
+  <br>
 
-## Table of contents:
+- 🔻[Table of contents](#table-of-contents)
+- 🔻[Problem Statement](#problem-statement)
+- 🔻[Solution](#solution)
+- 🔻[Features](#features)
+- 🔻[Non-Functional Requirements](#non-functional-requirements)
+- 🔻[Installation](#installation)
+- 🔻[Contributors](#contributors)
+- 🔻[Developers](#developers)
+- 🔻[Suggestions](#suggestions)
+  
 
-- [Table of contents:](#table-of-contents)
-- [Problem Statement:](#problem-statement)
-- [Solution:](#solution)
-- [Features:](#features)
-  - [Functional Requirements:](#functional-requirements)
-  - [Non-Functional Requirements:](#non-functional-requirements)
-- [Installation:](#installation)
-- [Contributors:](#contributors)
-  - [Developers:](#developers)
-- [Suggestions:](#suggestions)
+</details>
 
-## Problem Statement:
 
-Managing multiple repositories on a local device can be cumbersome, requiring manual tracking of paths, frequent navigation, and inefficient switching between projects. Developers often struggle with quickly accessing their most-used repositories and maintaining an organized workflow.
+<details>
+  <summary>⛈️ ## Problem Statement</summary>
+  <br>
 
-## Solution:
+Managing multiple repositories on a local device can be cumbersome, requiring manual tracking of paths, frequent navigation, and inefficient switching between projects. Developers often struggle with quickly accessing their most-used repositories and maintaining an organized workflow.  
+
+</details>
+
+<details>
+  <summary>✔️ ## Solution</summary>
+  <br>
+  
 
 Swichy provides a simple command-line interface to streamline repository management. By offering intuitive commands for adding, listing, updating, and accessing repositories, Swichy enhances productivity, reduces manual effort, and ensures seamless repository navigation. With efficient storage and retrieval mechanisms, Swichy simplifies the developer experience.
+  
+</details>
+
 
 ## Features:
 
-### Functional Requirements:
-
-Swichy is a command-line interpreter designed for easy management of repositories on a local device. The following are the functional requirements:
+Swichy is a command-line interpreter designed for easy management of repositories on a local device. The following features:
 
 - **Repository Management**
 
@@ -53,7 +65,10 @@ Swichy is a command-line interpreter designed for easy management of repositorie
 
   - `Help Command`: The system must provide a help command to display information about available commands and their usage.
 
-### Non-Functional Requirements:
+<details>
+  <summary>📌 ### Non-Functional Requirements</summary>
+  <br>
+  
 
 - **Performance**
 
@@ -86,6 +101,9 @@ Swichy is a command-line interpreter designed for easy management of repositorie
 - **Extensibility**
 
   - The design allows for future extensions, such as remote repository support or integration with version control systems.
+    
+</details>
+
 
 ## Installation:
 
