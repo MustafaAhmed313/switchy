@@ -19,8 +19,8 @@
 - 🔻[Contributors](#contributors)
 - 🔻[Developers](#developers)
 - 🔻[Suggestions](#suggestions)
-  
 
+  <br>
 </details>
 
 
@@ -30,6 +30,7 @@
 
 Managing multiple repositories on a local device can be cumbersome, requiring manual tracking of paths, frequent navigation, and inefficient switching between projects. Developers often struggle with quickly accessing their most-used repositories and maintaining an organized workflow.  
 
+  <br>
 </details>
 
 <details>
@@ -38,7 +39,8 @@ Managing multiple repositories on a local device can be cumbersome, requiring ma
   
 
 Swichy provides a simple command-line interface to streamline repository management. By offering intuitive commands for adding, listing, updating, and accessing repositories, Swichy enhances productivity, reduces manual effort, and ensures seamless repository navigation. With efficient storage and retrieval mechanisms, Swichy simplifies the developer experience.
-  
+
+  <br>
 </details>
 
 
@@ -101,7 +103,8 @@ Swichy is a command-line interpreter designed for easy management of repositorie
 - **Extensibility**
 
   - The design allows for future extensions, such as remote repository support or integration with version control systems.
-    
+
+    <br>
 </details>
 
 
